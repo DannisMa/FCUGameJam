@@ -9,16 +9,31 @@ public class TrainingBattleControllor : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private GameObject respawn_point;
+    [SerializeField]
+    private GameObject[] flags;
+    [SerializeField]
+    private GameObject[] flag_points;
 
     // Start is called before the first frame update
     void Start()
     {
         Instantiate(player, respawn_point.transform.position, respawn_point.transform.rotation);
+        StartCoroutine(InstantiateFlag());
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    IEnumerator InstantiateFlag(){
+        int index = 0;
+        yield return 0;
+        foreach(GameObject point in flag_points){
+            Instantiate(flags[index], point.transform.position, flags[index].transform.rotation);
+            index ++;
+            yield return 0;
+        }
     }
 }
