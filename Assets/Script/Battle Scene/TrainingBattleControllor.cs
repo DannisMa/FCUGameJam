@@ -10,9 +10,11 @@ public class TrainingBattleControllor : MonoBehaviour
     [SerializeField]
     private GameObject respawn_point;
     [SerializeField]
-    private GameObject[] flags;
+    private GameObject[] flag_prefabs;
     [SerializeField]
     private GameObject[] flag_points;
+    [SerializeField]
+    private GameObject[] flags;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +33,7 @@ public class TrainingBattleControllor : MonoBehaviour
         int index = 0;
         yield return 0;
         foreach(GameObject point in flag_points){
-            Instantiate(flags[index], point.transform.position, flags[index].transform.rotation);
+            flags[index] = Instantiate(flag_prefabs[index], point.transform.position, flag_prefabs[index].transform.rotation);
             index ++;
             yield return 0;
         }
