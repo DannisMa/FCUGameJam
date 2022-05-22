@@ -54,4 +54,13 @@ public class PlayerControllor : MonoBehaviour
     private void FixedUpdate(){
 
     }
+
+    void OnTriggerStay(Collider other){
+        if(other.gameObject.tag == "Enemy")
+            anima.SetBool("Attack", true);
+    }
+    void OnTriggerExit(Collider other){
+        if(other.gameObject.tag == "Enemy")
+            anima.SetBool("Attack", false);
+    }
 }
