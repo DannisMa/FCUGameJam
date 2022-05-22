@@ -393,6 +393,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  flag_icons:
+  - {fileID: 1378199203}
+  - {fileID: 1005206666}
+  - {fileID: 1241901434}
+  - {fileID: 2120194878}
+  - {fileID: 599348223}
 --- !u!4 &216751334
 Transform:
   m_ObjectHideFlags: 0

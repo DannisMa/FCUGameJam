@@ -77,8 +77,14 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
-     <Compile Include="Assets\Script\Battle Scene\TrainingBattleControllor.cs" />
+     <Compile Include="Assets\Script\Battle Scene\BattleControllor.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+     <Compile Include="Assets\Script\EventListener.cs" />
+     <Compile Include="Assets\Script\Enum\FlagEnum.cs" />
+     <Compile Include="Assets\Script\Flag\GoldFlag.cs" />
+     <Compile Include="Assets\Script\Flag\WoodFlag.cs" />
+     <Compile Include="Assets\Script\Flag\WaterFlag.cs" />
+     <Compile Include="Assets\Script\Flag\DirtFlag.cs" />
      <None Include="Assets\Picola\Toon\Shader\Toon_DoubleShadeWithFeather_Mobile_TransClipping_StencilMask.shader" />
      <None Include="Assets\Picola\Toon\Shader\Toon_ShadingGradeMap_Mobile_StencilMask.shader" />
      <None Include="Assets\Picola\Toon\Shader\Tess\Toon_DoubleShadeWithFeather_Tess_Light_StencilMask.shader" />
