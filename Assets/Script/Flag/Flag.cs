@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Flag : MonoBehaviour
 {
-    public delegate void OnTeanEnumChangeDelegate();
+    public delegate void OnTeanEnumChangeDelegate(int owner, int flag);
     public event OnTeanEnumChangeDelegate OnOwnerChange;
 
     [SerializeField]
@@ -16,7 +16,7 @@ public class Flag : MonoBehaviour
                 return;
             m_owner = value;
             if(OnOwnerChange != null)
-                    OnOwnerChange();
+                    OnOwnerChange((int)owner, (int)m_flag_type);
             }
     }
 
@@ -31,6 +31,7 @@ public class Flag : MonoBehaviour
     protected bool timer_counting = false;
     protected Coroutine timer_corontine = null;
     protected int max_time = 15;
+    [SerializeField]
     protected int current_time = 15;
 
     // Start is called before the first frame update
@@ -82,7 +83,8 @@ public class Flag : MonoBehaviour
             return;
         inside_players.Remove(other.gameObject);
         timer_counting = false;
-        StopCoroutine(timer_corontine);
+        if(timer_corontine != null)
+            StopCoroutine(timer_corontine);
         current_time = max_time;
     }
 

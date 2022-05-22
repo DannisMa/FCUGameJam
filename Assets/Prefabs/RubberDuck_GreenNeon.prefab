@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3328172}
   - component: {fileID: 2307808}
   - component: {fileID: -5771542608935078672}
+  - component: {fileID: 7357220077963595270}
   m_Layer: 0
   m_Name: RubberDuck_GreenNeon
   m_TagString: Untagged
@@ -97,3 +98,17 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7357220077963595270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35298f139d69d66478508a4bea6bb404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_owner: 2
+  current_time: 15

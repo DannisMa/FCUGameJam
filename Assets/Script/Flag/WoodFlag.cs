@@ -16,4 +16,20 @@ public class WoodFlag : Flag
     {
         
     }
+
+    void OnTriggerEnter(Collider other){
+        WhenPlayerIn(other);
+    }
+
+    void OnTriggerStay(Collider other){
+        WhenPlayerStay(other);
+    }
+
+    void OnTriggerExit(Collider other){
+        WhenPlayerOut(other);
+    }
+
+    public override void Effect(){
+        Debug.Log(flag_type);
+    }
 }

@@ -476,6 +476,7 @@
 "Assets/Script/Battle Scene/BattleControllor.cs"
 "Assets/Script/Battle Scene/ScoreboardControllor.cs"
 "Assets/Script/Enum/FlagEnum.cs"
+"Assets/Script/Enum/PlayerType.cs"
 "Assets/Script/Enum/TeamEnum.cs"
 "Assets/Script/EventListener.cs"
 "Assets/Script/Flag/DirtFlag.cs"

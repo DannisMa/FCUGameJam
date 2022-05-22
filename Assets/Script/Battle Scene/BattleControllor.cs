@@ -16,6 +16,8 @@ public class BattleControllor : MonoBehaviour
     [SerializeField]
     private GameObject[] flags;
     [SerializeField]
+    private GameObject[] scorebare;
+    [SerializeField]
     private GameObject[] flag_icons;
 
     // Start is called before the first frame update
@@ -37,14 +39,14 @@ public class BattleControllor : MonoBehaviour
         foreach(GameObject point in flag_points){
             flags[index] = Instantiate(flag_prefabs[index], point.transform.position, flag_prefabs[index].transform.rotation);
             flag_icons[index].SetActive(false);
+            flags[index].GetComponent<Flag>().OnOwnerChange += OccupyFlag;
             index ++;
             yield return 0;
         }
-        flags[3].GetComponent<Flag>().OnOwnerChange += OccupyFlag;
     }
 
-    public void OccupyFlag(){
-        flag_icons[3].SetActive(true);
-        flags[3].GetComponent<Flag>().Effect();
+    public void OccupyFlag(int owner, int flag){
+        flag_icons[flag].SetActive(true);
+        flags[flag].GetComponent<Flag>().Effect();
     }
 }

@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum TeamEnum{
-    None, TeamBlue, TeamRed
+    TeamBlue, TeamRed, None
 }
