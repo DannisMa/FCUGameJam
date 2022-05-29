@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu Scence.unity
     guid: d047081e402db48458d4ea9e370972df
   - enabled: 1
-    path: Assets/Scenes/Battle Scene.unity
-    guid: 5f44595dedf805b488f2de43a46669d6
+    path: Assets/Scenes/OnePlayerBattle.unity
+    guid: b06efb9e959a1a74282f287cdc6af818
+  - enabled: 1
+    path: Assets/Scenes/TwoPlayerBattle.unity
+    guid: b0e744655dfb75246b2063b28615c28a
+  - enabled: 1
+    path: Assets/Scenes/FivePlayerBattle.unity
+    guid: c5f372434a61ff248851d6db8894a9e8
   m_configObjects: {}

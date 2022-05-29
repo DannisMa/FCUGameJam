@@ -18,6 +18,8 @@ namespace com.Dannis.FCUGameJame{
         private Button battle_button;
         [SerializeField]
         private TMP_Dropdown battle_scene_dropdown;
+        [SerializeField]
+        private bool isConnecting = false;
 
         /// <summary>
         /// Awake is called when the script instance is being loaded.
@@ -42,6 +44,7 @@ namespace com.Dannis.FCUGameJame{
         }
 
         public void Connect(){
+            isConnecting = true;
             // 檢查連線
             if(PhotonNetwork.IsConnected){
                 // 已連線，隨機加入一間遊戲室
@@ -57,7 +60,11 @@ namespace com.Dannis.FCUGameJame{
         public override void OnConnectedToMaster()
         {
             Debug.Log("PUN 呼叫 OnConnectedToMaster(), 已連上 Photon Cloud.");
-            PhotonNetwork.JoinRandomRoom();
+
+            if (isConnecting)
+            {
+                PhotonNetwork.JoinRandomRoom();
+            }
         }
 
         public override void OnDisconnected(DisconnectCause cause)
@@ -76,6 +83,12 @@ namespace com.Dannis.FCUGameJame{
         public override void OnJoinedRoom()
         {
             Debug.Log("PUN 呼叫 OnJoinedRoom(), 已成功進入遊戲室中.");
+            if(PhotonNetwork.CurrentRoom.PlayerCount == 1){
+                Debug.Log("我是第一個進入Room的玩家");
+                Debug.Log("進行載入單人戰局的動作");
+
+                PhotonNetwork.LoadLevel(1);
+            }
         }
 
         private void OnClickBattleButton(){
