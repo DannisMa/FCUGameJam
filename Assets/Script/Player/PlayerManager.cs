@@ -44,7 +44,6 @@ namespace com.Dannis.FCUGameJame{
             {
                 PlayerManager.Local_Player_instance = this.gameObject;
             }
-            
             DontDestroyOnLoad(this.gameObject);
         }
 

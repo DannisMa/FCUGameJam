@@ -24,10 +24,9 @@ namespace com.Dannis.FCUGameJame{
             leave_btn.onClick.AddListener(LeaveRoom);
             Instance = this;
             if(player_prefab == null){
-                Debug.LogErrorFormat("動態生成玩家角色{0}", Application.loadedLevelName);
+                Debug.LogErrorFormat("動態生成玩家角色");
             }
             else if(PlayerManager.Local_Player_instance == null){
-                print("IS NULL");
                 PhotonNetwork.Instantiate(player_prefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
             }
         }

@@ -83,17 +83,34 @@ namespace com.Dannis.FCUGameJame{
         public override void OnJoinedRoom()
         {
             Debug.Log("PUN 呼叫 OnJoinedRoom(), 已成功進入遊戲室中.");
+
             if(PhotonNetwork.CurrentRoom.PlayerCount == 1){
                 Debug.Log("我是第一個進入Room的玩家");
                 Debug.Log("進行載入單人戰局的動作");
-
-                PhotonNetwork.LoadLevel(1);
+                
+                if( battle_scene_dropdown.value == 0){
+                    PhotonNetwork.LoadLevel(1);
+                }
+                else if( battle_scene_dropdown.value == 1){
+                    PhotonNetwork.LoadLevel(2);
+                }
+                else if( battle_scene_dropdown.value == 2){
+                    PhotonNetwork.LoadLevel(3);
+                }
             }
+
+            // if(PhotonNetwork.CurrentRoom.PlayerCount == 1){
+            //     Debug.Log("我是第一個進入Room的玩家");
+            //     Debug.Log("進行載入單人戰局的動作");
+
+            //     PhotonNetwork.LoadLevel(1);
+            // }
         }
 
         private void OnClickBattleButton(){
             Connect();
         }
+
         private void OnBattleSceneChange(int num){
             Debug.LogFormat("戰鬥場景號碼 : {0}", num);
             if(num == 0)
