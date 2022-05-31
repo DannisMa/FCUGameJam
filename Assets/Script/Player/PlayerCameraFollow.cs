@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace com.Dannis.FCUGameJame{
-    public class PlayerCameraFollow : MonoBehaviour
+    public class PlayerCameraFollow : MonoBehaviourPun
     {
         [SerializeField]
         private GameObject player_camera;
@@ -14,6 +15,8 @@ namespace com.Dannis.FCUGameJame{
         // Start is called before the first frame update
         void Start()
         {
+            if(!photonView.IsMine)
+                return;
             player_camera = GameObject.Find("Main Camera");
             player_camera.transform.LookAt(this.gameObject.transform);
             // player_camera.transform.SetParent(this.gameObject.transform);
@@ -24,6 +27,8 @@ namespace com.Dannis.FCUGameJame{
         // Update is called once per frame
         void Update()
         {
+            if(!photonView.IsMine)
+                return;
             player_camera.transform.position = this.gameObject.transform.position + screen_offset;
             player_camera.transform.LookAt(this.gameObject.transform);
         }

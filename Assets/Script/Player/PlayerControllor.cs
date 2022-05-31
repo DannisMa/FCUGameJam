@@ -12,6 +12,7 @@ namespace com.Dannis.FCUGameJame{
         protected VariableJoystick variable_joystick;
         [SerializeField]
         protected CharacterController characterController;
+        [SerializeField]
         protected Animator anima;
         protected float move_speed = 4.0f;
         [SerializeField]
@@ -67,6 +68,8 @@ namespace com.Dannis.FCUGameJame{
         }
 
         protected void InitializeController(){
+            if(!photonView.IsMine)
+                return;
             characterController = GetComponent<CharacterController>();
             anima = GetComponent<Animator>();
             variable_joystick = Instantiate(variable_joystick_prefab, GameObject.Find("Battle Room Menu Canvas").transform);
@@ -79,7 +82,10 @@ namespace com.Dannis.FCUGameJame{
             if(direction != Vector3.zero){
                 characterController.Move(direction * move_speed * Time.deltaTime);
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10);
+                anima.SetBool("Walk", true);
             }
+            else
+                anima.SetBool("Walk", false);
         }
     }
 }

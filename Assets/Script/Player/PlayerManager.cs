@@ -8,8 +8,8 @@ namespace com.Dannis.FCUGameJame{
     public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         [Tooltip("隊伍 - TeamEnum")]
-        [SerializeField]
-        protected TeamEnum Team = TeamEnum.None;
+
+        protected TeamEnum Team;
         public TeamEnum team{
             get{return Team;}
             set{Team = value;}
@@ -85,7 +85,7 @@ namespace com.Dannis.FCUGameJame{
         protected void InitializePlayerTeam(){
             if(!photonView.IsMine)
                 return;
-
+                
             int _id = photonView.ViewID / 1000;
             _id = _id % 2;
             Debug.LogFormat("該玩家隊伍{0}", _id);
@@ -158,13 +158,13 @@ namespace com.Dannis.FCUGameJame{
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
             if(stream.IsWriting){
                 //是本人，更新資訊給其他玩家
-                stream.SendNext(Team);
+                stream.SendNext(team);
                 stream.SendNext(m_current_hp);
                 stream.SendNext(m_current_mp);
             }
             else{
                 //非本人，負責接受資訊
-                this.Team = (TeamEnum)stream.ReceiveNext();
+                this.team = (TeamEnum)stream.ReceiveNext();
                 this.m_current_hp = (int)stream.ReceiveNext();
                 this.m_current_mp = (int)stream.ReceiveNext();
             }

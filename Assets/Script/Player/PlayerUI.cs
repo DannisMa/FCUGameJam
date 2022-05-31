@@ -61,6 +61,12 @@ namespace com.Dannis.FCUGameJame{
             if (player_name_text != null)
             {
                 player_name_text.text = target.photonView.Owner.NickName;
+                // if(this.gameObject.GetComponent<PlayerManager>().team == TeamEnum.TeamRed)
+                //     player_name_text.text = "Red : " + target.photonView.Owner.NickName;
+                // else if(this.gameObject.GetComponent<PlayerManager>().team == TeamEnum.TeamBlue)
+                //     player_name_text.text = "Blue : " + target.photonView.Owner.NickName;
+                // else
+                //     player_name_text.color = Color.yellow;
             }
 
             targetTransform = target.transform;
