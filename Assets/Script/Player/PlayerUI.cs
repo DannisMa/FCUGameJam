@@ -39,6 +39,13 @@ namespace com.Dannis.FCUGameJame{
                 Destroy(this.gameObject);
                 return;
             }
+
+            if(target.GetComponent<PlayerManager>() != null && target.GetComponent<PlayerManager>().team == TeamEnum.TeamRed)
+                player_name_text.color = Color.red;
+            else if(target.GetComponent<PlayerManager>() != null && target.GetComponent<PlayerManager>().team == TeamEnum.TeamBlue)
+                player_name_text.color = Color.blue;
+            else
+                player_name_text.color = Color.yellow;
         }
         void LateUpdate()
         {
