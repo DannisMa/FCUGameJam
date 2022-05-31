@@ -2,22 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCameraFollow : MonoBehaviour
-{
-    [SerializeField]
-    private Camera player_camera;
-    private Vector3 camera_offset = new Vector3(0, 2.5f, -3);
-
-    // Start is called before the first frame update
-    void Start()
+namespace com.Dannis.FCUGameJame{
+    public class PlayerCameraFollow : MonoBehaviour
     {
-        player_camera = Instantiate(Camera.main, gameObject.transform.position + camera_offset, gameObject.transform.rotation, gameObject.transform);
-        player_camera.transform.Rotate(15f, player_camera.transform.rotation.y, player_camera.transform.rotation.z);
-    }
+        [SerializeField]
+        private GameObject player_camera;
+        private Vector3 camera_offset = new Vector3(0, 2.5f, -3);
+        [Tooltip("名字字串在角色頭頂的距離")]
+        private Vector3 screen_offset = new Vector3(0f, 5f, -5f);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Start is called before the first frame update
+        void Start()
+        {
+            player_camera = GameObject.Find("Main Camera");
+            player_camera.transform.LookAt(this.gameObject.transform);
+            // player_camera.transform.SetParent(this.gameObject.transform);
+            // player_camera = Instantiate(Camera.main, gameObject.transform.position + camera_offset, gameObject.transform.rotation, gameObject.transform);
+            // player_camera.transform.Rotate(15f, player_camera.transform.rotation.y, player_camera.transform.rotation.z);
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            player_camera.transform.position = this.gameObject.transform.position + screen_offset;
+            player_camera.transform.LookAt(this.gameObject.transform);
+        }
     }
 }

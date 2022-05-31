@@ -1178,6 +1178,8 @@ GameObject:
   m_Component:
   - component: {fileID: 400064}
   - component: {fileID: 9500000}
+  - component: {fileID: 2992837656349498851}
+  - component: {fileID: 162550356798520035}
   m_Layer: 0
   m_Name: Dimples Tank
   m_TagString: Untagged
@@ -1222,3 +1224,40 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2992837656349498851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100068}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7f0b5882d0539e408b3a4e74c4cb366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beams: {fileID: 0}
+  Health: 1
+  player_ui_prefab: {fileID: 0}
+--- !u!114 &162550356798520035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

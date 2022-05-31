@@ -30,7 +30,7 @@ namespace com.Dannis.FCUGameJame{
         {
             if (player_health_slider != null)
             {
-                player_health_slider.value = target.Health;
+                player_health_slider.value = target.Current_HP;
             }
 
             // 當有不明原因, Photon 沒有將 Player 相關的 instance 清乾淨時

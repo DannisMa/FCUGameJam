@@ -63,6 +63,10 @@ public class MainScenController : MonoBehaviour
             // 設定遊戲玩家的名稱
         PhotonNetwork.NickName = default_name;
 
+        if(GameConst.Characater_name != null){
+            OnChooseCharater(GameConst.Characater_name);
+        }
+
         m_setting_panel.SetActive(false);
         m_charater_panel.SetActive(false);
     }
@@ -103,8 +107,9 @@ public class MainScenController : MonoBehaviour
         if(m_charater_show_point.transform.childCount != 0)
             Destroy(m_charater_show_point.transform.GetChild(0).gameObject);
         GameObject obj = Resources.Load(name) as GameObject;
-        GameObject temp_c = Instantiate(obj, obj.transform.position , Quaternion.Euler(0f, 180f, 0f) , m_charater_show_point.transform);
+        GameObject temp_c = Instantiate(obj, Vector3.zero/*obj.transform.position*/ , Quaternion.Euler(0f, 180f, 0f) , m_charater_show_point.transform);
         temp_c.transform.localScale =  new Vector3(10, 10 , 10);
+        GameConst.Characater_name = name;
     }
 
 }

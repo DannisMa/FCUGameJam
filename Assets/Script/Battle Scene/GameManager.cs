@@ -23,12 +23,21 @@ namespace com.Dannis.FCUGameJame{
         void Start(){
             leave_btn.onClick.AddListener(LeaveRoom);
             Instance = this;
-            if(player_prefab == null){
-                Debug.LogErrorFormat("動態生成玩家角色");
-            }
-            else if(PlayerManager.Local_Player_instance == null){
-                PhotonNetwork.Instantiate(player_prefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
-            }
+            player_prefab = Resources.Load(GameConst.Characater_name) as GameObject;
+
+            player_prefab.GetComponent<CharacterController>().enabled = true;
+            player_prefab.GetComponent<PlayerCameraFollow>().enabled = true;
+            player_prefab.GetComponent<PlayerControllor>().enabled = true;
+            player_prefab.GetComponent<PlayerManager>().enabled = true;
+            player_prefab.GetComponent<PhotonView>().enabled = true;
+
+            PhotonNetwork.Instantiate(player_prefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+            // if(player_prefab == null){
+            //     Debug.LogErrorFormat("動態生成玩家角色");
+            // }
+            // else if(PlayerManager.Local_Player_instance == null){
+            //     PhotonNetwork.Instantiate(player_prefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+            // }
         }
 
         public override void OnLeftRoom()
@@ -42,7 +51,7 @@ namespace com.Dannis.FCUGameJame{
 
             if(PhotonNetwork.IsMasterClient){
                 Debug.Log("我是Master Client.");
-                LoadArena();
+                // LoadArena();
             }
         }
 
@@ -52,11 +61,16 @@ namespace com.Dannis.FCUGameJame{
 
             if(PhotonNetwork.IsMasterClient){
                 Debug.Log("我是Master Client.");
-                LoadArena();
+                // LoadArena();
             }
         }
 
         public void LeaveRoom(){
+            player_prefab.GetComponent<CharacterController>().enabled = false;
+            player_prefab.GetComponent<PlayerCameraFollow>().enabled = false;
+            player_prefab.GetComponent<PlayerControllor>().enabled = false;
+            player_prefab.GetComponent<PlayerManager>().enabled = false;
+            player_prefab.GetComponent<PhotonView>().enabled = false;
             PhotonNetwork.LeaveRoom();
         }
 

@@ -1,66 +1,85 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerControllor : MonoBehaviour
-{
-    private CharacterController characterController;
-    private Animator anima;
-    private float move_speed = 4.0f;
-    private float jump_speed = 5.0f;
-    private float rotate = 180.0f;　// 旋轉速度
-    private float horizontalMove , verticalMove;
-    private Vector3 dir; //儲存移動的方向    Vector3 move_direction = Vector3.zero, vDir = Vector3.zero;
-    private float gravity = 9.81f;
-    private Vector3 velocity; //控制Y軸加速度
-
-    void Awake(){
-        characterController = GetComponent<CharacterController>();
-        anima = GetComponent<Animator>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
+namespace com.Dannis.FCUGameJame{
+    public class PlayerControllor : MonoBehaviourPun
     {
-        
-    }
+        [SerializeField]
+        protected VariableJoystick variable_joystick_prefab;
+        [SerializeField]
+        protected VariableJoystick variable_joystick;
+        [SerializeField]
+        protected CharacterController characterController;
+        protected Animator anima;
+        protected float move_speed = 4.0f;
+        [SerializeField]
+        protected Vector3 direction;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if ( Input.GetKey(KeyCode.A) ){ transform.Rotate( 0, -rotate* Time.deltaTime, 0 ); }
-        if ( Input.GetKey(KeyCode.D) ){ transform.Rotate( 0, rotate* Time.deltaTime, 0 ); }
-        horizontalMove = Input.GetAxis("Horizontal") * move_speed;
-        verticalMove   = Input.GetAxis("Vertical") * move_speed;
-        dir = transform.forward * verticalMove + transform.right * horizontalMove;
-        
-        if(dir != Vector3.zero){
-            anima.SetBool("Walk", true);
-        }
-        else{
-            anima.SetBool("Walk", false);
+        void Awake(){
+            
         }
 
-        characterController.Move(dir * Time.deltaTime);
+        // Start is called before the first frame update
+        void Start()
+        {
 
-        if(Input.GetButtonDown("Jump") && characterController.isGrounded){
-            velocity.y = jump_speed;
         }
 
-        velocity.y -= gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
-    }
+        // Update is called once per frame
+        void Update()
+        {
+            // if ( Input.GetKey(KeyCode.A) ){ transform.Rotate( 0, -rotate* Time.deltaTime, 0 ); }
+            // if ( Input.GetKey(KeyCode.D) ){ transform.Rotate( 0, rotate* Time.deltaTime, 0 ); }
+            // horizontalMove = Input.GetAxis("Horizontal") * move_speed;
+            // verticalMove   = Input.GetAxis("Vertical") * move_speed;
+            // dir = transform.forward * verticalMove + transform.right * horizontalMove;
+            
+            // if(dir != Vector3.zero){
+            //     anima.SetBool("Walk", true);
+            // }
+            // else{
+            //     anima.SetBool("Walk", false);
+            // }
 
-    private void FixedUpdate(){
+            // characterController.Move(dir * Time.deltaTime);
 
-    }
+            // if(Input.GetButtonDown("Jump") && characterController.isGrounded){
+            //     velocity.y = jump_speed;
+            // }
 
-    void OnTriggerStay(Collider other){
-        if(other.gameObject.tag == "Enemy")
-            anima.SetBool("Attack", true);
-    }
-    void OnTriggerExit(Collider other){
-        if(other.gameObject.tag == "Enemy")
-            anima.SetBool("Attack", false);
+            // velocity.y -= gravity * Time.deltaTime;
+            // characterController.Move(velocity * Time.deltaTime);
+        }
+
+        private void FixedUpdate(){
+
+        }
+
+        void OnTriggerStay(Collider other){
+            if(other.gameObject.tag == "Enemy")
+                anima.SetBool("Attack", true);
+        }
+        void OnTriggerExit(Collider other){
+            if(other.gameObject.tag == "Enemy")
+                anima.SetBool("Attack", false);
+        }
+
+        protected void InitializeController(){
+            characterController = GetComponent<CharacterController>();
+            anima = GetComponent<Animator>();
+            variable_joystick = Instantiate(variable_joystick_prefab, GameObject.Find("Battle Room Menu Canvas").transform);
+        }
+
+        protected void PlayerMove(){
+            if(!photonView.IsMine || characterController == null)
+                return;
+            direction = new Vector3(variable_joystick.Direction.x, 0f, variable_joystick.Direction.y);
+            if(direction != Vector3.zero){
+                characterController.Move(direction * move_speed * Time.deltaTime);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10);
+            }
+        }
     }
 }

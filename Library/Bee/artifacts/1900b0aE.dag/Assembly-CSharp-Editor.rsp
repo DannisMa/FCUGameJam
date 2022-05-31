@@ -492,6 +492,10 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.TestRunner.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/AssestStore/ExplosiveLLC/Editor/SetupInputLayers.cs"
+"Assets/AssestStore/Joystick Pack/Scripts/Editor/DynamicJoystickEditor.cs"
+"Assets/AssestStore/Joystick Pack/Scripts/Editor/FloatingJoystickEditor.cs"
+"Assets/AssestStore/Joystick Pack/Scripts/Editor/JoystickEditor.cs"
+"Assets/AssestStore/Joystick Pack/Scripts/Editor/VariableJoystickEditor.cs"
 "Assets/AssestStore/Picola/Toon/Editor/UTS2GUI.cs"
 -langversion:9.0
 
