@@ -7,6 +7,8 @@ namespace com.Dannis.FCUGameJame{
     public class PlayerControllor : MonoBehaviourPun
     {
         [SerializeField]
+        private GameObject card_area_prefab;
+        [SerializeField]
         protected VariableJoystick variable_joystick_prefab;
         [SerializeField]
         protected VariableJoystick variable_joystick;
@@ -14,49 +16,11 @@ namespace com.Dannis.FCUGameJame{
         protected CharacterController characterController;
         [SerializeField]
         protected Animator anima;
+        [SerializeField]
+        protected PlayerManager player_manager;
         protected float move_speed = 4.0f;
         [SerializeField]
         protected Vector3 direction;
-
-        void Awake(){
-            
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            // if ( Input.GetKey(KeyCode.A) ){ transform.Rotate( 0, -rotate* Time.deltaTime, 0 ); }
-            // if ( Input.GetKey(KeyCode.D) ){ transform.Rotate( 0, rotate* Time.deltaTime, 0 ); }
-            // horizontalMove = Input.GetAxis("Horizontal") * move_speed;
-            // verticalMove   = Input.GetAxis("Vertical") * move_speed;
-            // dir = transform.forward * verticalMove + transform.right * horizontalMove;
-            
-            // if(dir != Vector3.zero){
-            //     anima.SetBool("Walk", true);
-            // }
-            // else{
-            //     anima.SetBool("Walk", false);
-            // }
-
-            // characterController.Move(dir * Time.deltaTime);
-
-            // if(Input.GetButtonDown("Jump") && characterController.isGrounded){
-            //     velocity.y = jump_speed;
-            // }
-
-            // velocity.y -= gravity * Time.deltaTime;
-            // characterController.Move(velocity * Time.deltaTime);
-        }
-
-        private void FixedUpdate(){
-
-        }
 
         void OnTriggerStay(Collider other){
             if(other.gameObject.tag == "Enemy")
@@ -72,12 +36,25 @@ namespace com.Dannis.FCUGameJame{
                 return;
             characterController = GetComponent<CharacterController>();
             anima = GetComponent<Animator>();
+            player_manager = GetComponent<PlayerManager>();
             variable_joystick = Instantiate(variable_joystick_prefab, GameObject.Find("Battle Room Menu Canvas").transform);
+
+            GameObject _card_area = Instantiate(card_area_prefab, GameObject.Find("Battle Room Menu Canvas").transform);
+            _card_area.transform.GetChild(0).GetChild(0).SendMessage("SettingPlayer", this.gameObject, SendMessageOptions.RequireReceiver);
+            _card_area.transform.GetChild(0).GetChild(0).SendMessage("SettingCanvas", GameObject.Find("Battle Room Menu Canvas"), SendMessageOptions.RequireReceiver);
+
+            _card_area.transform.GetChild(1).GetChild(0).SendMessage("SettingPlayer", this.gameObject,  SendMessageOptions.RequireReceiver);
+            _card_area.transform.GetChild(1).GetChild(0).SendMessage("SettingCanvas", GameObject.Find("Battle Room Menu Canvas"), SendMessageOptions.RequireReceiver);
+
+            _card_area.transform.GetChild(2).GetChild(0).SendMessage("SettingPlayer", this.gameObject, SendMessageOptions.RequireReceiver);
+            _card_area.transform.GetChild(2).GetChild(0).SendMessage("SettingCanvas", GameObject.Find("Battle Room Menu Canvas"), SendMessageOptions.RequireReceiver);
+            
         }
 
         protected void PlayerMove(){
-            if(!photonView.IsMine || characterController == null)
+            if(!photonView.IsMine || characterController == null || player_manager.State != PlayerState.Walk)
                 return;
+
             direction = new Vector3(variable_joystick.Direction.x, 0f, variable_joystick.Direction.y);
             if(direction != Vector3.zero){
                 characterController.Move(direction * move_speed * Time.deltaTime);
@@ -87,5 +64,6 @@ namespace com.Dannis.FCUGameJame{
             else
                 anima.SetBool("Walk", false);
         }
+
     }
 }

@@ -10,7 +10,6 @@ namespace com.Dannis.FCUGameJame{
     public class Launcher : MonoBehaviourPunCallbacks
     {
         private string game_version = "1";
-        private string player_name = "";
         [Tooltip("遊戲室玩家人數上限. 當遊戲室玩家人數已滿額, 新玩家只能新開遊戲室來進行遊戲.")]
         [SerializeField]
         private byte max_player_per_room = 10;

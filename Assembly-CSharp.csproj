@@ -95,6 +95,7 @@
      <Compile Include="Assets\AssestStore\ExplosiveLLC\Warrior FREE\Code\WarriorInputController.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
      <Compile Include="Assets\Script\Enum\PlayerType.cs" />
+     <Compile Include="Assets\Script\Card\HealthCard.cs" />
      <Compile Include="Assets\Script\Flag\Flag.cs" />
      <Compile Include="Assets\Script\Player\PlayerControllor.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -111,6 +112,7 @@
      <Compile Include="Assets\Script\Enum\FlagEnum.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
      <Compile Include="Assets\AssestStore\Joystick Pack\Examples\JoystickSetterExample.cs" />
+     <Compile Include="Assets\Script\Card\Card.cs" />
      <Compile Include="Assets\AssestStore\ExplosiveLLC\SuperCharacterController\SuperCharacterController\Core\BSPTree.cs" />
      <Compile Include="Assets\Script\Enum\TeamEnum.cs" />
      <Compile Include="Assets\Script\Player\Pico Chen Fighter\PicoChenController.cs" />
@@ -140,6 +142,12 @@
      <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
      <Compile Include="Assets\Script\Battle Scene\BattleControllor.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+     <Compile Include="Assets\Script\Card\DizzyCard.cs" />
+     <Compile Include="Assets\Script\Card\Effect.cs" />
+     <Compile Include="Assets\Script\Enum\AbnormalType.cs" />
+     <Compile Include="Assets\Script\Card\ShortFightCard.cs" />
+     <Compile Include="Assets\Script\Card\DizzyEffect.cs" />
+     <Compile Include="Assets\Script\Card\ShortFightEffect.cs" />
      <None Include="Assets\AssestStore\Picola\Toon\Shader\Toon_DoubleShadeWithFeather_Mobile_TransClipping_StencilMask.shader" />
      <None Include="Assets\AssestStore\Picola\Toon\Shader\Toon_ShadingGradeMap_Mobile_StencilMask.shader" />
      <None Include="Assets\AssestStore\Picola\Toon\Shader\Tess\Toon_DoubleShadeWithFeather_Tess_Light_StencilMask.shader" />

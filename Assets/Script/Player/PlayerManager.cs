@@ -16,18 +16,39 @@ namespace com.Dannis.FCUGameJame{
             set{Team = value;}
         }
 
+        [SerializeField]
+        [Tooltip("玩家狀態")]
 
-        protected int HP_MAX;
-        protected int m_current_hp;
-        public int Current_HP{
+        protected PlayerState m_state;
+        public PlayerState State{
+            get{return m_state;}
+            set{m_state = value;}
+        }
+
+
+        protected int HP_MAX = 100;
+        public float MAX_HP{
+            get{ return HP_MAX;}
+        }
+        [SerializeField]
+        protected float m_current_hp = 100;
+        public float Current_HP{
             get{ return m_current_hp;}
+            set{  m_current_hp = value;}
         }
         protected int m_atk;
         protected int m_def;
         protected int m_speed;
         protected int MP_MAX;
-        protected int m_current_mp;
+        protected float m_current_mp;
+        public float Current_MP{
+            get{ return m_current_mp;}
+            set{  m_current_mp = value;}
+        }
         protected int m_mp_speed;
+
+        [SerializeField]
+        protected Animator anima;
 
 
         // [SerializeField]
@@ -65,7 +86,7 @@ namespace com.Dannis.FCUGameJame{
         void Update()
         {
             if(photonView.IsMine)
-                ProcessInputs();
+                return;
 
             if (m_current_hp <= 0f)
             {
@@ -73,19 +94,29 @@ namespace com.Dannis.FCUGameJame{
             }
         }
 
-        protected void CreatePlayerUI(){
+        // protected void CreatePlayerUI(){
+        //     if (player_ui_prefab != null)
+        //     {
+        //         GameObject _uiGo = Instantiate(player_ui_prefab);
+        //         _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+        //     }
+        //     else
+        //         Debug.LogWarning("指標- GameObject PlayerUI 為空值", this);
+        // }
+
+        protected void InitializePlayer(){
+
             if (player_ui_prefab != null)
             {
                 GameObject _uiGo = Instantiate(player_ui_prefab);
                 _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+                Debug.Log("生成player UI");
             }
             else
                 Debug.LogWarning("指標- GameObject PlayerUI 為空值", this);
-        }
-
-        protected void InitializePlayerTeam(){
-            // if(!photonView.IsMine)
-            //     return;
+                
+            if(!photonView.IsMine)
+                return;
             
             int _id = photonView.ViewID / 1000;
             _id = _id % 2;
@@ -94,12 +125,11 @@ namespace com.Dannis.FCUGameJame{
                 team = TeamEnum.TeamBlue;
             else
                 team = TeamEnum.TeamRed;
-        }
 
-        protected void InitializeCamera(){
-            if(!photonView.IsMine)
-                return;
+            State = PlayerState.Walk;
 
+
+            
             PlayerCameraFollow _cameraWork = this.GetComponent<PlayerCameraFollow>();
             if (_cameraWork != null)
             {
@@ -107,68 +137,55 @@ namespace com.Dannis.FCUGameJame{
                     Debug.Log("相機初始化成功");
             }
             else 
-                Debug.LogError("playerPrefab- PlayerCameraFollow component 遺失",this); 
+                Debug.LogError("playerPrefab- PlayerCameraFollow component 遺失",this);
+
+            anima = this.gameObject.GetComponent<Animator>();
         }
 
-        protected void ProcessInputs()
-        {
-            // // 按下發射鈕
-            // if (Input.GetButtonDown("Fire1"))
-            // {
-            //     if (!IsFiring)
-            //     {
-            //         IsFiring = true;
-            //     }
-            // }
-            // // 放開發射鈕
-            // if (Input.GetButtonUp("Fire1"))
-            // {
-            //     if (IsFiring)
-            //     {
-            //         IsFiring = false;
-            //     }
-            // }
+        public void ChangeHP(float blood){
+            if(!photonView.IsMine)
+                return;
+
+            Current_HP += blood;
         }
 
-        void OnTriggerEnter(Collider other)
-        {
-            if (!photonView.IsMine)
-            {
+        public void StartDizzy(float time, PlayerState _state){
+            if(!photonView.IsMine && _state != PlayerState.Dizzy)
                 return;
-            }
-            // if (!other.name.Contains("Beam"))
-            // {
-            //     return;
-            // }
-            //     Health -= 0.1f;
+            m_state = _state;
+            if(anima == null)
+                anima = this.gameObject.GetComponent<Animator>();
+            anima.SetBool("Dizzy", true);
+            StartCoroutine(TimeCounter(time));
         }
-        
-        void OnTriggerStay(Collider other)
-        {
-            if (!photonView.IsMine)
-            {
-                return;
+
+        protected IEnumerator TimeCounter(float total_time){
+            Debug.Log(total_time);
+            while(true){
+                total_time -= 1 * Time.deltaTime;
+                yield return 0;
+                if(total_time <= 0f){
+                    anima.SetBool("Dizzy", false);
+                    m_state = PlayerState.Walk;
+                    break;
+                }
             }
-            // if (!other.name.Contains("Beam"))
-            // {
-            //     return;
-            // }
-            // Health -= 0.1f * Time.deltaTime;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
             if(stream.IsWriting){
                 //是本人，更新資訊給其他玩家
                 stream.SendNext(team);
-                stream.SendNext(m_current_hp);
+                stream.SendNext(Current_HP);
                 stream.SendNext(m_current_mp);
+                stream.SendNext(m_state);
             }
             else{
                 //非本人，負責接受資訊
-                
                 team = (TeamEnum)stream.ReceiveNext();
-                m_current_hp = (int)stream.ReceiveNext();
-                m_current_mp = (int)stream.ReceiveNext();
+                Current_HP = (float)stream.ReceiveNext();
+                Current_MP = (float)stream.ReceiveNext();
+                m_state = (PlayerState)stream.ReceiveNext();
             }
         }
     }

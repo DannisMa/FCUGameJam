@@ -9,6 +9,8 @@ using Photon.Realtime;
 namespace com.Dannis.FCUGameJame{
     public class GameManager : MonoBehaviourPunCallbacks
     {
+        [SerializeField]
+        private GameObject[] m_respawm_points;
         [Tooltip("Player characater prefab.")]
         [SerializeField]
         private GameObject player_prefab;
@@ -31,7 +33,13 @@ namespace com.Dannis.FCUGameJame{
             player_prefab.GetComponent<PlayerManager>().enabled = true;
             player_prefab.GetComponent<PhotonView>().enabled = true;
 
-            PhotonNetwork.Instantiate(player_prefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+            int point_num = PhotonNetwork.CountOfPlayers;
+            Debug.LogFormat("玩家人數 : {0}", point_num);
+            if(point_num <= 0)
+                point_num = 0;
+            else
+                point_num -= 1;
+            PhotonNetwork.Instantiate(player_prefab.name, m_respawm_points[point_num].transform.position, Quaternion.identity, 0);
             // if(player_prefab == null){
             //     Debug.LogErrorFormat("動態生成玩家角色");
             // }
