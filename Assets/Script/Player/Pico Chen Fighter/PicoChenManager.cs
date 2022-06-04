@@ -15,7 +15,7 @@ namespace com.Dannis.FCUGameJame{
         // Update is called once per frame
         void Update()
         {
-            
+            Respawn();
         }
     }
 }

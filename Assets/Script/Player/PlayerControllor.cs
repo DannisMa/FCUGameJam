@@ -52,9 +52,11 @@ namespace com.Dannis.FCUGameJame{
         }
 
         protected void PlayerMove(){
-            if(!photonView.IsMine || characterController == null || player_manager.State != PlayerState.Walk)
+            if(!photonView.IsMine)
                 return;
 
+            if(player_manager.State != PlayerState.Walk || characterController == null )
+                return;
             direction = new Vector3(variable_joystick.Direction.x, 0f, variable_joystick.Direction.y);
             if(direction != Vector3.zero){
                 characterController.Move(direction * move_speed * Time.deltaTime);

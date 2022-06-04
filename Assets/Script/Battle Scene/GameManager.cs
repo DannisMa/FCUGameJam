@@ -40,12 +40,6 @@ namespace com.Dannis.FCUGameJame{
             else
                 point_num -= 1;
             PhotonNetwork.Instantiate(player_prefab.name, m_respawm_points[point_num].transform.position, Quaternion.identity, 0);
-            // if(player_prefab == null){
-            //     Debug.LogErrorFormat("動態生成玩家角色");
-            // }
-            // else if(PlayerManager.Local_Player_instance == null){
-            //     PhotonNetwork.Instantiate(player_prefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
-            // }
         }
 
         public override void OnLeftRoom()

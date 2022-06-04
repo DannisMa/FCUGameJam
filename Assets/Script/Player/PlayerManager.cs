@@ -47,65 +47,21 @@ namespace com.Dannis.FCUGameJame{
         }
         protected int m_mp_speed;
 
+        protected float m_max_respawn_time = 5f;
+        [SerializeField]
+        protected float m_current_respawn_time;
+        [SerializeField]
+        protected Vector3 m_respawn_point;
+
         [SerializeField]
         protected Animator anima;
-
-
-        // [SerializeField]
-        // private static GameObject m_local_player_instance;
-        // public static GameObject Local_Player_instance{
-        //     get{return m_local_player_instance;}
-        //     set{
-        //         if(m_local_player_instance == null){
-        //             m_local_player_instance = value;
-        //         }
-        //     }
-        // }
-
 
         [Tooltip("指標- GameObject PlayerUI")]
         [SerializeField]
         protected GameObject player_ui_prefab;
 
-        void Awake()
-        {
-            // if (photonView.IsMine)
-            // {
-            //     PlayerManager.Local_Player_instance = this.gameObject;
-            // }
-            // DontDestroyOnLoad(this.gameObject);
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {   
-            
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if(photonView.IsMine)
-                return;
-
-            if (m_current_hp <= 0f)
-            {
-                // GameManager.Instance.LeaveRoom(); //改成播放死亡動畫
-            }
-        }
-
-        // protected void CreatePlayerUI(){
-        //     if (player_ui_prefab != null)
-        //     {
-        //         GameObject _uiGo = Instantiate(player_ui_prefab);
-        //         _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
-        //     }
-        //     else
-        //         Debug.LogWarning("指標- GameObject PlayerUI 為空值", this);
-        // }
-
         protected void InitializePlayer(){
-
+            m_respawn_point = this.gameObject.transform.position;
             if (player_ui_prefab != null)
             {
                 GameObject _uiGo = Instantiate(player_ui_prefab);
@@ -147,6 +103,12 @@ namespace com.Dannis.FCUGameJame{
                 return;
 
             Current_HP += blood;
+
+            if(Current_HP <=0 ){
+                anima.SetBool("Die", true);
+                m_current_respawn_time = m_max_respawn_time;
+                m_state = PlayerState.Die;
+            }
         }
 
         public void StartDizzy(float time, PlayerState _state){
@@ -170,6 +132,28 @@ namespace com.Dannis.FCUGameJame{
                     break;
                 }
             }
+        }
+
+        protected void Respawn(){        
+            if(!photonView.IsMine)
+                return;
+
+            if(m_state != PlayerState.Die)
+                return;
+                
+            m_current_respawn_time -= 1*Time.deltaTime;
+
+            if(m_current_respawn_time > 0f)
+                return;
+            CharacterController cc = this.gameObject.GetComponent<CharacterController>();
+            cc.enabled = false;
+            this.gameObject.transform.position = m_respawn_point;
+            cc.enabled = true;
+            m_state = PlayerState.Walk;
+            anima.SetBool("Die", false);
+            m_current_respawn_time = m_max_respawn_time;
+            m_current_hp = MAX_HP;
+
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){

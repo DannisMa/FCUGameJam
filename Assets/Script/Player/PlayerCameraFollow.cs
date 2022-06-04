@@ -19,9 +19,6 @@ namespace com.Dannis.FCUGameJame{
                 return;
             player_camera = GameObject.Find("Main Camera");
             player_camera.transform.LookAt(this.gameObject.transform);
-            // player_camera.transform.SetParent(this.gameObject.transform);
-            // player_camera = Instantiate(Camera.main, gameObject.transform.position + camera_offset, gameObject.transform.rotation, gameObject.transform);
-            // player_camera.transform.Rotate(15f, player_camera.transform.rotation.y, player_camera.transform.rotation.z);
         }
 
         // Update is called once per frame

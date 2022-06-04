@@ -6977,6 +6977,8 @@ MonoBehaviour:
   Team: 0
   m_state: 0
   m_current_hp: 100
+  m_current_respawn_time: 0
+  m_respawn_point: {x: 0, y: 0, z: 0}
   anima: {fileID: 0}
   player_ui_prefab: {fileID: 3757220923456940746, guid: 99bd6dac68a29e047b947a9abc23571c, type: 3}
 --- !u!114 &6107199991183857138
@@ -7060,6 +7062,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: Dizzy
+  - Type: 4
+    SynchronizeType: 1
+    Name: Die
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
