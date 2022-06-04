@@ -9,15 +9,20 @@ ScriptsOnlyBuild:
     - WarriorAnimsFREE.WarriorInputController
     - WarriorAnimsFREE.WarriorMovementController
     - com.Dannis.FCUGameJame.DirtFlag
+    - com.Dannis.FCUGameJame.DizzyCard
+    - com.Dannis.FCUGameJame.DizzyEffect
     - com.Dannis.FCUGameJame.FireFlag
     - com.Dannis.FCUGameJame.GameManager
     - com.Dannis.FCUGameJame.GoldFlag
+    - com.Dannis.FCUGameJame.HealthCard
     - com.Dannis.FCUGameJame.Launcher
     - com.Dannis.FCUGameJame.PicoChenController
     - com.Dannis.FCUGameJame.PicoChenManager
     - com.Dannis.FCUGameJame.PlayerCameraFollow
     - com.Dannis.FCUGameJame.PlayerManager
     - com.Dannis.FCUGameJame.PlayerUI
+    - com.Dannis.FCUGameJame.ShortFightCard
+    - com.Dannis.FCUGameJame.ShortFightEffect
     - com.Dannis.FCUGameJame.WaterFlag
     - com.Dannis.FCUGameJame.WoodFlag
     PhotonUnityNetworking.Demos.dll:
@@ -50,12 +55,21 @@ ScriptsOnlyBuild:
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
     - TMPro.TextMeshProUGUI
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.EventTrigger
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
@@ -171,9 +185,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5646}
     - Class: 114
-      Script: {instanceID: 6500}
+      Script: {instanceID: 6502}
     - Class: 114
-      Script: {instanceID: 7032}
+      Script: {instanceID: 7036}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -314,43 +328,55 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5906}
     - Class: 114
-      Script: {instanceID: 6242}
+      Script: {instanceID: 6076}
     - Class: 114
-      Script: {instanceID: 6290}
+      Script: {instanceID: 6244}
     - Class: 114
-      Script: {instanceID: 6500}
+      Script: {instanceID: 6292}
     - Class: 114
-      Script: {instanceID: 6620}
+      Script: {instanceID: 6502}
     - Class: 114
-      Script: {instanceID: 6666}
+      Script: {instanceID: 6622}
     - Class: 114
-      Script: {instanceID: 6670}
+      Script: {instanceID: 6668}
     - Class: 114
-      Script: {instanceID: 7032}
+      Script: {instanceID: 6672}
     - Class: 114
-      Script: {instanceID: 7044}
+      Script: {instanceID: 7036}
     - Class: 114
-      Script: {instanceID: 7046}
+      Script: {instanceID: 7048}
     - Class: 114
-      Script: {instanceID: 7690}
+      Script: {instanceID: 7050}
     - Class: 114
-      Script: {instanceID: 8028}
+      Script: {instanceID: 7166}
     - Class: 114
-      Script: {instanceID: 8256}
+      Script: {instanceID: 7696}
     - Class: 114
-      Script: {instanceID: 8260}
+      Script: {instanceID: 7864}
     - Class: 114
-      Script: {instanceID: 8422}
+      Script: {instanceID: 8034}
     - Class: 114
-      Script: {instanceID: 8648}
+      Script: {instanceID: 8262}
     - Class: 114
-      Script: {instanceID: 8784}
+      Script: {instanceID: 8266}
     - Class: 114
-      Script: {instanceID: 8852}
+      Script: {instanceID: 8428}
     - Class: 114
-      Script: {instanceID: 9124}
+      Script: {instanceID: 8654}
     - Class: 114
-      Script: {instanceID: 29308}
+      Script: {instanceID: 8790}
+    - Class: 114
+      Script: {instanceID: 8858}
+    - Class: 114
+      Script: {instanceID: 9130}
+    - Class: 114
+      Script: {instanceID: 54954}
+    - Class: 114
+      Script: {instanceID: 206508}
+    - Class: 114
+      Script: {instanceID: 250528}
+    - Class: 114
+      Script: {instanceID: 250534}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -433,9 +459,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5646}
     - Class: 114
-      Script: {instanceID: 6500}
+      Script: {instanceID: 6502}
     - Class: 114
-      Script: {instanceID: 7032}
+      Script: {instanceID: 7036}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -510,9 +536,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5646}
     - Class: 114
-      Script: {instanceID: 6500}
+      Script: {instanceID: 6502}
     - Class: 114
-      Script: {instanceID: 7032}
+      Script: {instanceID: 7036}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -780,7 +806,7 @@ ScriptsOnlyBuild:
     className: ScoreHelper
   - hash:
       serializedVersion: 2
-      Hash: 4a0a5e0928e770c7b94fa5412d7f3e66
+      Hash: 63bf3653982b269809e305893af1031d
     assemblyName: Assembly-CSharp.dll
     namespaceName: com.Dannis.FCUGameJame
     className: PlayerManager
@@ -1680,7 +1706,7 @@ ScriptsOnlyBuild:
     className: ShaderPropAnimator
   - hash:
       serializedVersion: 2
-      Hash: 2a0a3fe1ff55f48de170e9c77e8490af
+      Hash: bade948f7532a8d846cf2db48a6ffb5b
     assemblyName: Assembly-CSharp.dll
     namespaceName: com.Dannis.FCUGameJame
     className: GameManager
@@ -1692,7 +1718,7 @@ ScriptsOnlyBuild:
     className: PlayerMachineDebug
   - hash:
       serializedVersion: 2
-      Hash: 4a0a5e0928e770c7b94fa5412d7f3e66
+      Hash: 63bf3653982b269809e305893af1031d
     assemblyName: Assembly-CSharp.dll
     namespaceName: com.Dannis.FCUGameJame
     className: PicoChenManager
@@ -1812,6 +1838,12 @@ ScriptsOnlyBuild:
     className: IngameControlPanel
   - hash:
       serializedVersion: 2
+      Hash: d832d749b4321e64fb7e36f50e55f3f2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: com.Dannis.FCUGameJame
+    className: HealthCard
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -1872,7 +1904,7 @@ ScriptsOnlyBuild:
     className: Cluster
   - hash:
       serializedVersion: 2
-      Hash: 8479cd3cab283cbfd3fe9aaf4a2930c9
+      Hash: 644d7b39077bb353622efcbb957ef224
     assemblyName: Assembly-CSharp.dll
     namespaceName: com.Dannis.FCUGameJame
     className: PlayerControllor
@@ -2028,6 +2060,12 @@ ScriptsOnlyBuild:
     className: SplinePosition
   - hash:
       serializedVersion: 2
+      Hash: d832d749b4321e64fb7e36f50e55f3f2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: com.Dannis.FCUGameJame
+    className: Card
+  - hash:
+      serializedVersion: 2
       Hash: 748dd2a2a28da4e618912da5ac45684b
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -2080,6 +2118,12 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.PunBasics
     className: PlayerNameInputField
+  - hash:
+      serializedVersion: 2
+      Hash: 644d7b39077bb353622efcbb957ef224
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: com.Dannis.FCUGameJame
+    className: PicoChenController
   - hash:
       serializedVersion: 2
       Hash: c656dcc13ae391b68d594cc8f9c590b0
@@ -2670,10 +2714,34 @@ ScriptsOnlyBuild:
     className: UnityOnSliderValueChangedMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 8479cd3cab283cbfd3fe9aaf4a2930c9
+      Hash: d832d749b4321e64fb7e36f50e55f3f2
     assemblyName: Assembly-CSharp.dll
     namespaceName: com.Dannis.FCUGameJame
-    className: PicoChenController
+    className: DizzyCard
+  - hash:
+      serializedVersion: 2
+      Hash: 23968a2c34256d6ea2983aa9bffb868e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: com.Dannis.FCUGameJame
+    className: Effect
+  - hash:
+      serializedVersion: 2
+      Hash: d832d749b4321e64fb7e36f50e55f3f2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: com.Dannis.FCUGameJame
+    className: ShortFightCard
+  - hash:
+      serializedVersion: 2
+      Hash: 23968a2c34256d6ea2983aa9bffb868e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: com.Dannis.FCUGameJame
+    className: DizzyEffect
+  - hash:
+      serializedVersion: 2
+      Hash: 23968a2c34256d6ea2983aa9bffb868e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: com.Dannis.FCUGameJame
+    className: ShortFightEffect
   platform: 13
   scenePathNames:
   - Assets/Scenes/Main Menu Scence.unity

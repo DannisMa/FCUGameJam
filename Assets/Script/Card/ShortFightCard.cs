@@ -9,7 +9,7 @@ namespace com.Dannis.FCUGameJame{
         // Start is called before the first frame update
         void Start()
         {
-            InitializeCard(15f, "Cards/Short", "Cards/Short Range");
+            InitializeCard(15f, "Cards/Short", "Cards/Short Range", AbnormalType.Attack);
         }
 
         // Update is called once per frame
@@ -25,11 +25,7 @@ namespace com.Dannis.FCUGameJame{
             if(transform.localPosition.y > 50f){
                 Debug.Log("發動效果");
                 counter = MAX_TIME;
-                
-                if(effect_prefab == null)
-                    effect_prefab = Resources.Load(effect_prefab_path, typeof(GameObject));
-                    effect_gameobject = PhotonNetwork.Instantiate(effect_prefab_path, player.transform.position, player.transform.rotation, 0);
-                    effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(player, 1.5f, -45f, AbnormalType.Attack);
+                onCardEffect(effect_prefab_path, type);
             }
             else if(transform.localPosition.y < -50f){
                 Debug.Log("切換屬性");

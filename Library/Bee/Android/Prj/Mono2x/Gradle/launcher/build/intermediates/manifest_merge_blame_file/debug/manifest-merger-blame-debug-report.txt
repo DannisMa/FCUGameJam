@@ -81,8 +81,8 @@
 46-->[:unityLibrary] C:\Users\d0857\FCUGameFi\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\build\intermediates\library_manifest\debug\AndroidManifest.xml:35:13-44
 47            android:resizeableActivity="false"
 47-->[:unityLibrary] C:\Users\d0857\FCUGameFi\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:13-47
-48            android:screenOrientation="fullSensor"
-48-->[:unityLibrary] C:\Users\d0857\FCUGameFi\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\build\intermediates\library_manifest\debug\AndroidManifest.xml:37:13-51
+48            android:screenOrientation="sensorLandscape"
+48-->[:unityLibrary] C:\Users\d0857\FCUGameFi\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\build\intermediates\library_manifest\debug\AndroidManifest.xml:37:13-56
 49            android:theme="@style/UnityThemeSelector" >
 49-->[:unityLibrary] C:\Users\d0857\FCUGameFi\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:13-54
 50            <intent-filter>

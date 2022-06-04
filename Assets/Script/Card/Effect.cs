@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
 namespace com.Dannis.FCUGameJame{
-    public class Effect : MonoBehaviourPun, IPunObservable
+    public class Effect : MonoBehaviour
     {
         [SerializeField]
         protected GameObject m_owner = null;
@@ -50,37 +49,34 @@ namespace com.Dannis.FCUGameJame{
         public virtual void InitializeEffect(GameObject player, float _health, AbnormalType _type){}
 
         protected virtual void EffectWork(){
-            if(!photonView.IsMine)
-                return;
-
             this.gameObject.transform.parent.position = m_owner.transform.position;
             this.gameObject.transform.parent.rotation = m_owner.transform.rotation;
             
             counter_time -= 1 * Time.deltaTime;
 
             if(counter_time <= 0){
-                PhotonNetwork.Destroy(this.gameObject.transform.parent.gameObject);
+                Destroy(this.gameObject.transform.parent.gameObject);
             }
         }
 
-        public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
-            if(stream.IsWriting){
-                //是本人，更新資訊給其他玩家
-                stream.SendNext(m_type);
-                stream.SendNext(m_owner_team);
-                stream.SendNext(m_effect_time);
-                stream.SendNext(m_heart_range);
-                stream.SendNext(m_health_range);
-            }
-            else{
-                //非本人，負責接受資訊
-                m_type = (AbnormalType)stream.ReceiveNext();
-                m_owner_team = (TeamEnum)stream.ReceiveNext();
-                m_effect_time = (float)stream.ReceiveNext();
-                m_heart_range = (float)stream.ReceiveNext();
-                m_health_range = (float)stream.ReceiveNext();
-            }
-        }
+        // public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+        //     if(stream.IsWriting){
+        //         //是本人，更新資訊給其他玩家
+        //         stream.SendNext(m_type);
+        //         stream.SendNext(m_owner_team);
+        //         stream.SendNext(m_effect_time);
+        //         stream.SendNext(m_heart_range);
+        //         stream.SendNext(m_health_range);
+        //     }
+        //     else{
+        //         //非本人，負責接受資訊
+        //         m_type = (AbnormalType)stream.ReceiveNext();
+        //         m_owner_team = (TeamEnum)stream.ReceiveNext();
+        //         m_effect_time = (float)stream.ReceiveNext();
+        //         m_heart_range = (float)stream.ReceiveNext();
+        //         m_health_range = (float)stream.ReceiveNext();
+        //     }
+        // }
 
         protected virtual void CardEffect(Collider other){}
     }

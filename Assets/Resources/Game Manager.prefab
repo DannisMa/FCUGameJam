@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39120429568e364490895ca0c5af5f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_respawm_points: []
   player_prefab: {fileID: 7080033410942399465, guid: 7e1208348c561974b97c5374a4875002, type: 3}
+  score_prefab: {fileID: 4943030708717352093, guid: 7a19d005d5f4a884287812aae22e937c, type: 3}
   leave_btn: {fileID: 0}

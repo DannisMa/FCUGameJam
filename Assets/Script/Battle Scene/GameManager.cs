@@ -15,6 +15,10 @@ namespace com.Dannis.FCUGameJame{
         [SerializeField]
         private GameObject player_prefab;
         [SerializeField]
+        private GameObject score_prefab;
+        [SerializeField]
+        private GameObject score_object;
+        [SerializeField]
         private Button leave_btn;
         public static GameManager Instance;
         
@@ -39,7 +43,13 @@ namespace com.Dannis.FCUGameJame{
                 point_num = 0;
             else
                 point_num -= 1;
+            Debug.Log("玩家人數"+point_num);
             PhotonNetwork.Instantiate(player_prefab.name, m_respawm_points[point_num].transform.position, Quaternion.identity, 0);
+            if(PhotonNetwork.IsMasterClient){
+                Debug.Log("我是Master Client.");
+                score_object = PhotonNetwork.Instantiate("GameUI/"+score_prefab.name, score_prefab.transform.position, Quaternion.identity, 0);
+                Debug.Log("生成記分板");
+            }
         }
 
         public override void OnLeftRoom()
@@ -50,11 +60,6 @@ namespace com.Dannis.FCUGameJame{
         public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
         {
             Debug.LogFormat("{0} 進入遊戲室", newPlayer.NickName);
-
-            if(PhotonNetwork.IsMasterClient){
-                Debug.Log("我是Master Client.");
-                // LoadArena();
-            }
         }
 
         public override void OnPlayerLeftRoom(Photon.Realtime.Player newPlayer)

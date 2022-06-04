@@ -6981,6 +6981,7 @@ MonoBehaviour:
   m_respawn_point: {x: 0, y: 0, z: 0}
   anima: {fileID: 0}
   player_ui_prefab: {fileID: 3757220923456940746, guid: 99bd6dac68a29e047b947a9abc23571c, type: 3}
+  card_area_prefab: {fileID: 7669664610820642512, guid: f73bdaf359dfde0459fd1df668779bb6, type: 3}
 --- !u!114 &6107199991183857138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6993,7 +6994,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f179a411b3504b418bf05c54f7ee7aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card_area_prefab: {fileID: 7669664610820642512, guid: f73bdaf359dfde0459fd1df668779bb6, type: 3}
   variable_joystick_prefab: {fileID: 3881087803549984439, guid: ec536a7718376554185e4a856d5ae230, type: 3}
   variable_joystick: {fileID: 0}
   characterController: {fileID: 0}

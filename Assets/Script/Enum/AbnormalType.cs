@@ -3,5 +3,5 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum AbnormalType{
-    Dizzy, Block , Attack
+    Dizzy, Block , Attack, Health
 }

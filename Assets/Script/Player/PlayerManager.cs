@@ -7,6 +7,9 @@ using Photon.Pun.Demo.PunBasics;
 namespace com.Dannis.FCUGameJame{
     public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
+        public delegate void OnPlayerStateChange(TeamEnum _team);
+        public OnPlayerStateChange onPlayerDie;
+
         [SerializeField]
         [Tooltip("隊伍 - TeamEnum")]
 
@@ -59,6 +62,8 @@ namespace com.Dannis.FCUGameJame{
         [Tooltip("指標- GameObject PlayerUI")]
         [SerializeField]
         protected GameObject player_ui_prefab;
+        [SerializeField]
+        private GameObject card_area_prefab;
 
         protected void InitializePlayer(){
             m_respawn_point = this.gameObject.transform.position;
@@ -96,18 +101,61 @@ namespace com.Dannis.FCUGameJame{
                 Debug.LogError("playerPrefab- PlayerCameraFollow component 遺失",this);
 
             anima = this.gameObject.GetComponent<Animator>();
+
+            GameObject _card_area = Instantiate(card_area_prefab, GameObject.Find("Battle Room Menu Canvas").transform);
+            GameObject _card = _card_area.transform.GetChild(0).GetChild(0).gameObject;
+            _card.GetComponent<Card>().SettingPlayer(this.gameObject);
+            _card.GetComponent<Card>().SettingCanvas(GameObject.Find("Battle Room Menu Canvas"));
+            _card.GetComponent<Card>().onCardEffect += CardEffect;
+
+            _card = _card_area.transform.GetChild(1).GetChild(0).gameObject;
+            _card.GetComponent<Card>().SettingPlayer(this.gameObject);
+            _card.GetComponent<Card>().SettingCanvas(GameObject.Find("Battle Room Menu Canvas"));
+            _card.GetComponent<Card>().onCardEffect += CardEffect;
+
+            _card = _card_area.transform.GetChild(2).GetChild(0).gameObject;
+            _card.GetComponent<Card>().SettingPlayer(this.gameObject);
+            _card.GetComponent<Card>().SettingCanvas(GameObject.Find("Battle Room Menu Canvas"));
+            _card.GetComponent<Card>().onCardEffect += CardEffect;
+            // _card_area.transform.GetChild(0).GetChild(0).SendMessage("SettingPlayer", this.gameObject, SendMessageOptions.RequireReceiver);
+            // _card_area.transform.GetChild(0).GetChild(0).SendMessage("SettingCanvas", GameObject.Find("Battle Room Menu Canvas"), SendMessageOptions.RequireReceiver);
+
+            // _card_area.transform.GetChild(1).GetChild(0).SendMessage("SettingPlayer", this.gameObject,  SendMessageOptions.RequireReceiver);
+            // _card_area.transform.GetChild(1).GetChild(0).SendMessage("SettingCanvas", GameObject.Find("Battle Room Menu Canvas"), SendMessageOptions.RequireReceiver);
+
+            // _card_area.transform.GetChild(2).GetChild(0).SendMessage("SettingPlayer", this.gameObject, SendMessageOptions.RequireReceiver);
+            // _card_area.transform.GetChild(2).GetChild(0).SendMessage("SettingCanvas", GameObject.Find("Battle Room Menu Canvas"), SendMessageOptions.RequireReceiver);
+        }
+
+        public void CardEffect(string name, AbnormalType type){
+            photonView.RPC ("RPCCardEffect", RpcTarget.All, name, type);
+        }
+
+        [PunRPC]
+        protected void RPCCardEffect(string _name, AbnormalType _type){
+
+            GameObject effect_prefab = Resources.Load(_name, typeof(GameObject)) as GameObject;
+            GameObject effect_gameobject = Instantiate(effect_prefab, this.gameObject.transform.position, Quaternion.identity);
+
+            if(_type == AbnormalType.Health)
+                effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject, 40f, _type);
+            else if(_type == AbnormalType.Dizzy)
+                effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject,1.5f, 5f, _type);
+            else if(_type == AbnormalType.Attack)
+                effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject,1.5f, -40f, _type);
         }
 
         public void ChangeHP(float blood){
             if(!photonView.IsMine)
                 return;
-
+            Debug.Log("改變血量"+ photonView.ViewID);
             Current_HP += blood;
 
             if(Current_HP <=0 ){
                 anima.SetBool("Die", true);
                 m_current_respawn_time = m_max_respawn_time;
                 m_state = PlayerState.Die;
+                onPlayerDie(Team);
             }
         }
 

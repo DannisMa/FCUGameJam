@@ -7,6 +7,9 @@ using Photon.Pun;
 namespace com.Dannis.FCUGameJame{
     public class Card : MonoBehaviour, IDragHandler, IEndDragHandler
     {
+        public delegate void OnCardEffect(string prefab_name, AbnormalType _type);
+        public OnCardEffect onCardEffect;
+
         [SerializeField]
         private Canvas canvas;
         protected float MAX_TIME = 3f;
@@ -21,12 +24,14 @@ namespace com.Dannis.FCUGameJame{
         protected string effect_prefab_path;
         protected Object effect_prefab;
         protected GameObject effect_gameobject;
+        protected AbnormalType type;
 
-        protected void InitializeCard(float _MAX_TIME, string effect_path, string range_path){
+        protected void InitializeCard(float _MAX_TIME, string effect_path, string range_path, AbnormalType _type){
             canvas = GameObject.Find("Battle Room Menu Canvas").GetComponent<Canvas>();
             MAX_TIME = _MAX_TIME;
             effect_prefab_path = effect_path;
             range_prefab_path = range_path;
+            type = _type;
         }
 
         void IDragHandler.OnDrag(UnityEngine.EventSystems.PointerEventData eventData){
@@ -91,7 +96,6 @@ namespace com.Dannis.FCUGameJame{
             if(range_gameobject == null && range_prefab != null)
             {
                 range_gameobject = Instantiate(range_prefab, player.transform.position, player.transform.rotation, player.transform) as GameObject;
-                // range_gameobject.transform.localPosition = new Vector3(0f, 0f, 0f);
             }
         }
 
