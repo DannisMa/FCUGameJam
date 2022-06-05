@@ -9,12 +9,15 @@ namespace com.Dannis.FCUGameJame{
         [SerializeField]
         protected Text time_shower;
         protected float total_time = 210f;
+        protected float flag_point_score = 0.005f;
         [SerializeField]
         protected GameObject blue_team_score_shower;
         protected float blue_team_score = 0f;
+        protected float blue_team_increa_scroe = 0f;
         [SerializeField]
         protected GameObject red_team_score_shower;
         protected float red_team_score = 0f;
+        protected float red_team_increa_scroe = 0f;
 
         [SerializeField]
         protected GameObject[] m_flag_points = new GameObject[5];
@@ -48,8 +51,8 @@ namespace com.Dannis.FCUGameJame{
             if(!photonView.IsMine)
                 return;
 
-            blue_team_score += 0.005f*Time.deltaTime;
-            red_team_score += 0.005f*Time.deltaTime;
+            blue_team_score += blue_team_increa_scroe*Time.deltaTime;
+            red_team_score += red_team_increa_scroe*Time.deltaTime;
         }
 
         protected void ChangeFlagIcon(int owner, int flag){
@@ -60,10 +63,24 @@ namespace com.Dannis.FCUGameJame{
         [PunRPC]
         protected void RPCChangeFlagIcon(int owner, int flag){
             Debug.Log(owner+" : "+flag);
-            if(owner == 0)
+            if(owner == 0){
                 m_flag_icon[flag].color = Color.blue;
-            else
+
+                blue_team_increa_scroe += flag_point_score;
+                red_team_increa_scroe -= flag_point_score;
+                if(red_team_increa_scroe < 0f){
+                    red_team_increa_scroe = 0f;
+                }
+            }
+            else{
                 m_flag_icon[flag].color = Color.red;
+
+                blue_team_increa_scroe -= flag_point_score;
+                red_team_increa_scroe += flag_point_score;
+                if(blue_team_increa_scroe < 0f){
+                    blue_team_increa_scroe = 0f;
+                }
+            }
         }
 
 
