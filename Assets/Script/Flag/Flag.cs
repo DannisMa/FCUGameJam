@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace com.Dannis.FCUGameJame{
-    public class Flag : MonoBehaviour
+    public class Flag : MonoBehaviourPun, IPunObservable
     {
         public delegate void OnTeanEnumChangeDelegate(int owner, int flag);
         public event OnTeanEnumChangeDelegate OnOwnerChange;
@@ -35,6 +36,13 @@ namespace com.Dannis.FCUGameJame{
         [SerializeField]
         protected int current_time = 15;
 
+        [SerializeField]
+        protected GameObject range;
+        [SerializeField]
+        protected  Material blue_material;
+        [SerializeField]
+        protected  Material red_material;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -48,12 +56,18 @@ namespace com.Dannis.FCUGameJame{
         }
 
         protected void WhenPlayerIn(Collider other){
+            if( !photonView.IsMine )
+                return;
+                
             if(other.gameObject.tag != "Player")
                 return;
             inside_players.Add(other.gameObject);
         }
 
         protected void WhenPlayerStay(Collider other){
+            if( !photonView.IsMine )
+                return;
+
             if(other.gameObject.tag != "Player")
                 return;
 
@@ -76,10 +90,19 @@ namespace com.Dannis.FCUGameJame{
                 timer_corontine = StartCoroutine(CountDown());
             if(current_time <= 0){
                 owner = player_team;
+                if( owner == TeamEnum.TeamBlue){
+                    range.GetComponent<Renderer>().material = blue_material;
+                }
+                else if( owner == TeamEnum.TeamRed ){
+                    range.GetComponent<Renderer>().material = red_material;
+                }
             }
         }
 
         protected void WhenPlayerOut(Collider other){
+            if( !photonView.IsMine )
+                return;
+                            
             if(other.gameObject.tag != "Player")
                 return;
             inside_players.Remove(other.gameObject);
@@ -100,5 +123,24 @@ namespace com.Dannis.FCUGameJame{
         public virtual void Effect(){
             Debug.Log("Effect");
         }
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+            if(stream.IsWriting){
+                //是本人，更新資訊給其他玩家
+                stream.SendNext(owner);
+                Debug.Log(this.name+"傳送此旗擁有者"+ owner);
+            }
+            else{
+                //非本人，負責接受資訊
+                owner = (TeamEnum)stream.ReceiveNext();
+                Debug.Log(this.name+"接收此旗擁有者"+ owner);
+                if( owner == TeamEnum.TeamBlue){
+                    range.GetComponent<Renderer>().material = blue_material;
+                }
+                else if( owner == TeamEnum.TeamRed ){
+                    range.GetComponent<Renderer>().material = red_material;
+                }
+            }
+        }    
     }
 }

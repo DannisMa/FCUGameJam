@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace com.Dannis.FCUGameJame{
     public class GoldFlag : Flag
@@ -32,6 +33,6 @@ namespace com.Dannis.FCUGameJame{
 
         public override void Effect(){
             Debug.Log(flag_type);
-        }
+        }         
     }
 }

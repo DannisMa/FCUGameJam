@@ -15,6 +15,12 @@ public class ScoreboardControllor : MonoBehaviourPun, IPunObservable
     protected GameObject red_team_score_shower;
     protected float red_team_score = 0f;
 
+    [SerializeField]
+    protected GameObject[] m_flag_points = new GameObject[5];
+    [SerializeField]
+    protected GameObject[] m_flag_prefabs;
+    protected GameObject[] m_flag = new GameObject[5];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +29,11 @@ public class ScoreboardControllor : MonoBehaviourPun, IPunObservable
         
         blue_team_score_shower.transform.localScale = new Vector3(0f, 1f, 1f);
         red_team_score_shower.transform.localScale = new Vector3(0f, 1f, 1f);
+        for(int i = 0 ; i < 5 ; i++){
+            m_flag_points[i] = GameObject.Find("Flag 0"+(i+1).ToString());
+            m_flag[i] = PhotonNetwork.Instantiate("Flag/" + m_flag_prefabs[i].gameObject.name, m_flag_points[i].transform.position, Quaternion.AngleAxis(90, Vector3.left), 0);
+
+        }
     }
 
     // Update is called once per frame
@@ -51,5 +62,5 @@ public class ScoreboardControllor : MonoBehaviourPun, IPunObservable
                 blue_team_score = (float)stream.ReceiveNext();
                 red_team_score = (float)stream.ReceiveNext();
             }
-        }
+    }
 }

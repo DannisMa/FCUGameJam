@@ -375,6 +375,18 @@ MonoBehaviour:
   time_shower: {fileID: 3210972965419628688}
   blue_team_score_shower: {fileID: 1454183179428244422}
   red_team_score_shower: {fileID: 7489242545018813160}
+  m_flag_points:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_flag_prefabs:
+  - {fileID: 136300, guid: 47eccfdaaa8490246bb90d54bab6ccbd, type: 3}
+  - {fileID: 127196, guid: b1d5779163eeaef4dad5b96bca2d6199, type: 3}
+  - {fileID: 148310, guid: 9e420fa081b35364eac42ee5ceb6ffaf, type: 3}
+  - {fileID: 144290, guid: 436d19b1cddfdff4b99270daeaec55d7, type: 3}
+  - {fileID: 176708, guid: 26f8b9578f5720d4bbcf8c9fa6c64c95, type: 3}
 --- !u!1 &5965608464716530864
 GameObject:
   m_ObjectHideFlags: 0

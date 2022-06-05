@@ -140,9 +140,9 @@ namespace com.Dannis.FCUGameJame{
             if(_type == AbnormalType.Health)
                 effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject, 40f, _type);
             else if(_type == AbnormalType.Dizzy)
-                effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject,1.5f, 5f, _type);
+                effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject, 1.5f, 5f, _type);
             else if(_type == AbnormalType.Attack)
-                effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject,1.5f, -40f, _type);
+                effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject, 1f, -40f, _type);
         }
 
         public void ChangeHP(float blood){
