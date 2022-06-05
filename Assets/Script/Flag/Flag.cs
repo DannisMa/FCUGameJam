@@ -128,12 +128,12 @@ namespace com.Dannis.FCUGameJame{
             if(stream.IsWriting){
                 //是本人，更新資訊給其他玩家
                 stream.SendNext(owner);
-                Debug.Log(this.name+"傳送此旗擁有者"+ owner);
+                // Debug.Log(this.name+"傳送此旗擁有者"+ owner);
             }
             else{
                 //非本人，負責接受資訊
                 owner = (TeamEnum)stream.ReceiveNext();
-                Debug.Log(this.name+"接收此旗擁有者"+ owner);
+                // Debug.Log(this.name+"接收此旗擁有者"+ owner);
                 if( owner == TeamEnum.TeamBlue){
                     range.GetComponent<Renderer>().material = blue_material;
                 }
