@@ -950,6 +950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time_shower: {fileID: 3210972965419628688}
+  current_time: 0
   blue_team_score_shower: {fileID: 1454183179428244422}
   red_team_score_shower: {fileID: 7489242545018813160}
   m_flag_points:

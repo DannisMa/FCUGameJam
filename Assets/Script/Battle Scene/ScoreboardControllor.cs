@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
@@ -9,6 +10,8 @@ namespace com.Dannis.FCUGameJame{
         [SerializeField]
         protected Text time_shower;
         protected float total_time = 210f;
+        [SerializeField]
+        protected float current_time;
         protected float flag_point_score = 0.005f;
         [SerializeField]
         protected GameObject blue_team_score_shower;
@@ -32,7 +35,9 @@ namespace com.Dannis.FCUGameJame{
         {
             if(!photonView.IsMine)
                 return;
-            
+
+            current_time = total_time;
+
             blue_team_score_shower.transform.localScale = new Vector3(0f, 1f, 1f);
             red_team_score_shower.transform.localScale = new Vector3(0f, 1f, 1f);
             for(int i = 0 ; i < 5 ; i++){
@@ -51,8 +56,16 @@ namespace com.Dannis.FCUGameJame{
             if(!photonView.IsMine)
                 return;
 
+            current_time -= 1f*Time.deltaTime;
+
             blue_team_score += blue_team_increa_scroe*Time.deltaTime;
             red_team_score += red_team_increa_scroe*Time.deltaTime;
+
+            string min = (Mathf.Floor(current_time/60f)).ToString();
+            string sec = (Mathf.Floor(current_time%60f)).ToString();
+            if(time_shower.text != (min+":"+sec))
+                ChangTimeShower((min+":"+sec));
+
         }
 
         protected void ChangeFlagIcon(int owner, int flag){
@@ -83,7 +96,14 @@ namespace com.Dannis.FCUGameJame{
             }
         }
 
+        protected void ChangTimeShower(string time){
+            photonView.RPC ("RPCChangeTimeShower", RpcTarget.All, time);
+        }
 
+        [PunRPC]
+        protected void RPCChangeTimeShower(string time){
+            time_shower.text = time;
+        }
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
                 if(stream.IsWriting){
                     //是本人，更新資訊給其他玩家

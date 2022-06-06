@@ -1263,6 +1263,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 582642460226585093, guid: c6d8208fceed1a7448f98c2203423ed2, type: 3}
+      propertyPath: MAX_PLAYER
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 582642460226585093, guid: c6d8208fceed1a7448f98c2203423ed2, type: 3}
       propertyPath: m_respawm_points.Array.size
       value: 2
       objectReference: {fileID: 0}

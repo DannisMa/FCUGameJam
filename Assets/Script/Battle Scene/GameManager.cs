@@ -10,6 +10,8 @@ namespace com.Dannis.FCUGameJame{
     public class GameManager : MonoBehaviourPunCallbacks
     {
         [SerializeField]
+        private int MAX_PLAYER;
+        [SerializeField]
         private GameObject[] m_respawm_points;
         [Tooltip("Player characater prefab.")]
         [SerializeField]
@@ -43,7 +45,7 @@ namespace com.Dannis.FCUGameJame{
                 point_num = 0;
             else
                 point_num -= 1;
-            Debug.Log("玩家人數"+point_num);
+
             PhotonNetwork.Instantiate(player_prefab.name, m_respawm_points[point_num].transform.position, Quaternion.identity, 0);
             if(PhotonNetwork.IsMasterClient){
                 Debug.Log("我是Master Client.");
@@ -60,16 +62,18 @@ namespace com.Dannis.FCUGameJame{
         public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
         {
             Debug.LogFormat("{0} 進入遊戲室", newPlayer.NickName);
+
+            int point_num = PhotonNetwork.CountOfPlayers;
+            Debug.LogFormat("玩家人數 : {0}", point_num);
+            
+            if(PhotonNetwork.IsMasterClient){
+                Debug.Log("我是Master Client.");
+            }
         }
 
         public override void OnPlayerLeftRoom(Photon.Realtime.Player newPlayer)
         {
             Debug.LogFormat("{0} 離開遊戲室", newPlayer.NickName);
-
-            if(PhotonNetwork.IsMasterClient){
-                Debug.Log("我是Master Client.");
-                // LoadArena();
-            }
         }
 
         public void LeaveRoom(){

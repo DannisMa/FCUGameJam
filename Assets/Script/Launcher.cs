@@ -76,6 +76,7 @@ namespace com.Dannis.FCUGameJame{
             Debug.Log("PUN 呼叫 OnJoinRandomFailed(), 隨機加入遊戲室失敗 : "+message);
             // 隨機加入遊戲室失敗. 可能原因是 1. 沒有遊戲室 或 2. 有的都滿了.    
             // 因此我們自己開一個遊戲室.
+            Debug.Log(max_player_per_room);
             PhotonNetwork.CreateRoom(null, new RoomOptions{MaxPlayers = max_player_per_room});
         }
 
