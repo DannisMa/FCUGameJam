@@ -52,11 +52,11 @@ namespace com.Dannis.FCUGameJame{
             this.gameObject.transform.parent.position = m_owner.transform.position;
             this.gameObject.transform.parent.rotation = m_owner.transform.rotation;
             
-            counter_time -= 1 * Time.deltaTime;
+            // counter_time -= 1 * Time.deltaTime;
 
-            if(counter_time <= 0){
-                Destroy(this.gameObject.transform.parent.gameObject);
-            }
+            // if(counter_time <= 0){
+            //     Destroy(this.gameObject.transform.parent.gameObject);
+            // }
         }
 
         // public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){

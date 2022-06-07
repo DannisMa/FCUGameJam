@@ -1053,6 +1053,7 @@ MonoBehaviour:
   - {fileID: 7378080639338450245}
   - {fileID: 3897394298314976524}
   m_wating_panel: {fileID: 5793177137941134771}
+  m_wating_panel_text: {fileID: 7873381059865553845}
   game_start: 0
 --- !u!1 &5105771494904297737
 GameObject:

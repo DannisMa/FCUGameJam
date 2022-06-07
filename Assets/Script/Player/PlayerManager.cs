@@ -67,6 +67,12 @@ namespace com.Dannis.FCUGameJame{
         protected GameObject effect_prefab;
         protected GameObject effect_gameobject;
 
+        [SerializeField]
+        protected AudioClip m_health_sound;
+        [SerializeField]
+        protected AudioClip m_short_attack_sound;
+        [SerializeField]
+        protected AudioClip m_range_attack_sound;
         protected void InitializePlayer(){
             m_respawn_point = this.gameObject.transform.position;
             if (player_ui_prefab != null)
@@ -135,12 +141,19 @@ namespace com.Dannis.FCUGameJame{
             m_state = PlayerState.Attack;
 
             photonView.RPC ("RPCGetEffectName", RpcTarget.All, name);
-            if(type == AbnormalType.Health)
+
+            if(type == AbnormalType.Health){
+                photonView.RPC ("RPCPlaySound", RpcTarget.All, m_health_sound.name);
                 anima.SetBool("Buff", true);
-            else if(type == AbnormalType.Dizzy)
+            }
+            else if(type == AbnormalType.Dizzy){
+                photonView.RPC ("RPCPlaySound", RpcTarget.All, m_range_attack_sound.name);
                 anima.SetBool("Range Attack", true);
-            else if(type == AbnormalType.Attack)
+            }
+            else if(type == AbnormalType.Attack){
+                photonView.RPC ("RPCPlaySound", RpcTarget.All, m_short_attack_sound.name);
                 anima.SetBool("Short Attack", true);
+            }
             // photonView.RPC ("RPCCardEffect", RpcTarget.All, name, type);
         }
 
@@ -161,12 +174,22 @@ namespace com.Dannis.FCUGameJame{
             Debug.LogFormat("已經取得預知物{0}", effect_prefab.name);
         }
 
+        [PunRPC]
+        public void RPCPlaySound(string name){
+            AudioClip _clip = (AudioClip)Resources.Load("Sound/"+name);
+            this.gameObject.GetComponent<AudioSource>().clip = _clip;
+            this.gameObject.GetComponent<AudioSource>().Play();
+        }
+
         public void EndAnima(){
+            if(!photonView.IsMine)
+                return;
             Debug.Log("END");
             anima.SetBool("Short Attack", false);
             anima.SetBool("Buff", false);
             anima.SetBool("Range Attack", false);
             State = PlayerState.Walk;
+            photonView.RPC("RPCDestoryEffectObj", RpcTarget.All);
         }
 
         public void StartShortAtack()
@@ -223,6 +246,11 @@ namespace com.Dannis.FCUGameJame{
             // State = PlayerState.Walk;
         }
 
+        [PunRPC]
+        public void RPCDestoryEffectObj(){
+            Destroy(effect_gameobject);
+        }
+
         public void ChangeHP(float blood){
             if(!photonView.IsMine)
                 return;
@@ -233,7 +261,7 @@ namespace com.Dannis.FCUGameJame{
                 anima.SetBool("Die", true);
                 m_current_respawn_time = m_max_respawn_time;
                 m_state = PlayerState.Die;
-                onPlayerDie(Team);
+                // onPlayerDie(Team);
             }
         }
 
@@ -254,7 +282,8 @@ namespace com.Dannis.FCUGameJame{
                 yield return 0;
                 if(total_time <= 0f){
                     anima.SetBool("Dizzy", false);
-                    m_state = PlayerState.Walk;
+                    if(m_state != PlayerState.Die)
+                        m_state = PlayerState.Walk;
                     break;
                 }
             }

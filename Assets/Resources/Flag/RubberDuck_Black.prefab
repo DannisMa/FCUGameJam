@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_owner: 2
-  current_time: 10
+  current_time: 5
   range: {fileID: 137347818955862714}
   blue_material: {fileID: 2100000, guid: dced3e8100a875a49a280a95363faa48, type: 2}
   red_material: {fileID: 2100000, guid: 00d95302c05f1e1479ebc52e63972a00, type: 2}

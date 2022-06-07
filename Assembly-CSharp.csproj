@@ -162,6 +162,7 @@
      <None Include="Assets\AssestStore\Picola\Toon\Shader\Toon_OutlineObject.shader" />
      <None Include="Assets\AssestStore\Picola\Toon\Shader\Tess\UCTS_ShadowCaster_Tess.cginc" />
      <None Include="Assets\AssestStore\Picola\Toon\Shader\Toon_ShadingGradeMap_StencilOut.shader" />
+     <None Include="Assets\IdiaSoftware\Blades&amp;Bludgeonings-Free\Documentation-Free.txt" />
      <None Include="Assets\AssestStore\Picola\Toon\Shader\Toon_ShadingGradeMap_AngelRing_TransClipping.shader" />
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
      <None Include="Assets\AssestStore\Picola\Toon\Shader\Tess\ToonColor_DoubleShadeWithFeather_Transparent_Tess_StencilOut.shader" />
@@ -247,6 +248,7 @@
      <None Include="Assets\AssestStore\Picola\Toon\Shader\ToonColor_DoubleShadeWithFeather_Transparent_StencilOut.shader" />
      <None Include="Assets\AssestStore\Picola\Toon\Shader\Tess\ToonColor_DoubleShadeWithFeather_Clipping_Tess.shader" />
      <None Include="Assets\AssestStore\Picola\Toon\Shader\ToonColor_ShadingGradeMap_TransClipping_StencilMask.shader" />
+     <None Include="Assets\Fantasy SFX for Particle Distort Texture effect library\readme_Fantasy SFX for Particle Distort Texture effect library.txt" />
      <None Include="Assets\AssestStore\Picola\Toon\Shader\Toon_DoubleShadeWithFeather.shader" />
      <None Include="Assets\AssestStore\Picola\Toon\Shader\Toon_DoubleShadeWithFeather_TransClipping_StencilOut.shader" />
      <None Include="Assets\AssestStore\Picola\Toon\Shader\Tess\ToonColor_DoubleShadeWithFeather_Transparent_Tess.shader" />

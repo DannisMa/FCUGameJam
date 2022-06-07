@@ -16,7 +16,7 @@ namespace com.Dannis.FCUGameJame{
         protected Animator anima;
         [SerializeField]
         protected PlayerManager player_manager;
-        protected float move_speed = 4.0f;
+        protected float move_speed = 5.0f;
         [SerializeField]
         protected Vector3 direction;
 

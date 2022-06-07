@@ -9,7 +9,7 @@ namespace com.Dannis.FCUGameJame{
         // Start is called before the first frame update
         void Start()
         {
-            InitializeCard(15f, "Cards/Circle", "Cards/Circle Range", AbnormalType.Dizzy);
+            InitializeCard(5f, "Cards/Circle", "Cards/Circle Range", AbnormalType.Dizzy);
         }
 
         // Update is called once per frame
