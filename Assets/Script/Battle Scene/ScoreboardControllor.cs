@@ -29,6 +29,10 @@ namespace com.Dannis.FCUGameJame{
         protected GameObject[] m_flag = new GameObject[5];
         [SerializeField]
         protected Image[] m_flag_icon = new Image[5];
+        [SerializeField]
+        protected GameObject m_wating_panel;
+        [SerializeField]
+        protected bool game_start = false;
 
         // Start is called before the first frame update
         void Start()
@@ -53,7 +57,7 @@ namespace com.Dannis.FCUGameJame{
             blue_team_score_shower.transform.localScale = new Vector3(blue_team_score, 1f, 1f);
             red_team_score_shower.transform.localScale = new Vector3(red_team_score, 1f, 1f);
 
-            if(!photonView.IsMine)
+            if(!photonView.IsMine || game_start != true)
                 return;
 
             current_time -= 1f*Time.deltaTime;
@@ -104,6 +108,17 @@ namespace com.Dannis.FCUGameJame{
         protected void RPCChangeTimeShower(string time){
             time_shower.text = time;
         }
+
+        public void StareGame(){
+            photonView.RPC ("RPCStareGame", RpcTarget.All);
+        }
+
+        [PunRPC]
+        protected void RPCStareGame(){
+            m_wating_panel.SetActive(false);
+            game_start = true;
+        }
+
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
                 if(stream.IsWriting){
                     //是本人，更新資訊給其他玩家

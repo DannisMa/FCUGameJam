@@ -23,6 +23,8 @@ namespace com.Dannis.FCUGameJame{
         [SerializeField]
         private Button leave_btn;
         public static GameManager Instance;
+        protected bool already_start = false;
+        protected int player_counter = 0;
         
         void Awake(){
             leave_btn = GameObject.Find("Leave Button").GetComponent<Button>();
@@ -47,11 +49,33 @@ namespace com.Dannis.FCUGameJame{
                 point_num -= 1;
 
             PhotonNetwork.Instantiate(player_prefab.name, m_respawm_points[point_num].transform.position, Quaternion.identity, 0);
+            player_counter ++;
             if(PhotonNetwork.IsMasterClient){
                 Debug.Log("我是Master Client.");
                 score_object = PhotonNetwork.Instantiate("GameUI/"+score_prefab.name, score_prefab.transform.position, Quaternion.identity, 0);
                 Debug.Log("生成記分板");
+
+                if(player_counter == MAX_PLAYER){
+                    score_object.GetComponent<ScoreboardControllor>().StareGame();
+                }else{
+                    Debug.LogFormat("玩家人數目前:{0}", PhotonNetwork.CountOfPlayers);
+                }
             }
+        }
+
+        void Update(){
+            // Debug.Log("運作一");
+            // if(already_start)
+            //     return;
+            // Debug.Log("運作二");
+            // if(PhotonNetwork.IsMasterClient){
+            //     if(PhotonNetwork.CountOfPlayers == MAX_PLAYER){
+            //         score_object.GetComponent<ScoreboardControllor>().StareGame();
+            //         already_start = true;
+            //     }else{
+            //         Debug.LogFormat("玩家人數目前:{0}", PhotonNetwork.CountOfPlayers);
+            //     }
+            // }
         }
 
         public override void OnLeftRoom()
@@ -62,18 +86,24 @@ namespace com.Dannis.FCUGameJame{
         public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
         {
             Debug.LogFormat("{0} 進入遊戲室", newPlayer.NickName);
+            player_counter++;
 
             int point_num = PhotonNetwork.CountOfPlayers;
             Debug.LogFormat("玩家人數 : {0}", point_num);
             
             if(PhotonNetwork.IsMasterClient){
-                Debug.Log("我是Master Client.");
+                if(player_counter == MAX_PLAYER){
+                    score_object.GetComponent<ScoreboardControllor>().StareGame();
+                }else{
+                    Debug.LogFormat("玩家人數目前:{0}", PhotonNetwork.CountOfPlayers);
+                }
             }
         }
 
         public override void OnPlayerLeftRoom(Photon.Realtime.Player newPlayer)
         {
             Debug.LogFormat("{0} 離開遊戲室", newPlayer.NickName);
+            player_counter--;
         }
 
         public void LeaveRoom(){
