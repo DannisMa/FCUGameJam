@@ -7065,6 +7065,15 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: Die
+  - Type: 4
+    SynchronizeType: 1
+    Name: Short Attack
+  - Type: 4
+    SynchronizeType: 1
+    Name: Buff
+  - Type: 4
+    SynchronizeType: 1
+    Name: Range Attack
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

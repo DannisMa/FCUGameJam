@@ -6,31 +6,31 @@ EditorUserSettings:
   serializedVersion: 4
   m_ConfigSettings:
     RecentlyUsedSceneGuid-0:
-      value: 56570052500c5c5f080a0a7a40765d444e4f1e78282d72632c7d4b65b4b9306e
-      flags: 0
-    RecentlyUsedSceneGuid-1:
-      value: 50500305550550020c565e7149250744104e4d787c7f73697f2b1963e6b83169
-      flags: 0
-    RecentlyUsedSceneGuid-2:
-      value: 5b02555150565c0e5c580d2446710c444e154c7d2e7a7561782d1866b1e56039
-      flags: 0
-    RecentlyUsedSceneGuid-3:
       value: 525251555253590958595f744171594442164d7c757871332e7c4567b3e13260
       flags: 0
-    RecentlyUsedSceneGuid-4:
+    RecentlyUsedSceneGuid-1:
       value: 5700000401510d085c0d592711775944154e1e7f287972657f2c4831e0e26069
       flags: 0
-    RecentlyUsedSceneGuid-5:
-      value: 010102030357505e545b552341220844444f4a2c7e707133292a4b32e4b86560
+    RecentlyUsedSceneGuid-2:
+      value: 0004525552075d08590f5a7316250d444e4f4d7b287e223275714467e3b93160
       flags: 0
-    RecentlyUsedSceneGuid-6:
-      value: 07030c565c540b020f575c2715220844474e1c7228717634792a4863b7e4676d
-      flags: 0
-    RecentlyUsedSceneGuid-7:
+    RecentlyUsedSceneGuid-3:
       value: 0101515151015f0e580a0a2047760d4440154a7a7a7b2462757f4c66e1b26c39
       flags: 0
+    RecentlyUsedSceneGuid-4:
+      value: 010102030357505e545b552341220844444f4a2c7e707133292a4b32e4b86560
+      flags: 0
+    RecentlyUsedSceneGuid-5:
+      value: 0103055f5156515a080c097049210e4412164a7c757e71607e2b1c35b5e66d3c
+      flags: 0
+    RecentlyUsedSceneGuid-6:
+      value: 0200575355050d5f580d5a2416265b44474e1a7379707063797e4a6abab0633b
+      flags: 0
+    RecentlyUsedSceneGuid-7:
+      value: 5752015f55540a0d09080f204573594414154b7b7a2a7f652e711b63b2b8363a
+      flags: 0
     RecentlyUsedSceneGuid-8:
-      value: 0004525552075d08590f5a7316250d444e4f4d7b287e223275714467e3b93160
+      value: 07030c565c540b020f575c2715220844474e1c7228717634792a4863b7e4676d
       flags: 0
     RecentlyUsedSceneGuid-9:
       value: 07010051550d585e595e5e2612770744434f1c7e29297f357e7e4d6ab5b2303e

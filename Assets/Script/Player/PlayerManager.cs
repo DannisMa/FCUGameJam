@@ -64,6 +64,8 @@ namespace com.Dannis.FCUGameJame{
         protected GameObject player_ui_prefab;
         [SerializeField]
         private GameObject card_area_prefab;
+        protected GameObject effect_prefab;
+        protected GameObject effect_gameobject;
 
         protected void InitializePlayer(){
             m_respawn_point = this.gameObject.transform.position;
@@ -127,22 +129,98 @@ namespace com.Dannis.FCUGameJame{
             // _card_area.transform.GetChild(2).GetChild(0).SendMessage("SettingCanvas", GameObject.Find("Battle Room Menu Canvas"), SendMessageOptions.RequireReceiver);
         }
 
+       
+
         public void CardEffect(string name, AbnormalType type){
-            photonView.RPC ("RPCCardEffect", RpcTarget.All, name, type);
+            m_state = PlayerState.Attack;
+
+            photonView.RPC ("RPCGetEffectName", RpcTarget.All, name);
+            if(type == AbnormalType.Health)
+                anima.SetBool("Buff", true);
+            else if(type == AbnormalType.Dizzy)
+                anima.SetBool("Range Attack", true);
+            else if(type == AbnormalType.Attack)
+                anima.SetBool("Short Attack", true);
+            // photonView.RPC ("RPCCardEffect", RpcTarget.All, name, type);
         }
 
         [PunRPC]
         protected void RPCCardEffect(string _name, AbnormalType _type){
-
-            GameObject effect_prefab = Resources.Load(_name, typeof(GameObject)) as GameObject;
-            GameObject effect_gameobject = Instantiate(effect_prefab, this.gameObject.transform.position, Quaternion.identity);
-
             if(_type == AbnormalType.Health)
                 effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject, 40f, _type);
             else if(_type == AbnormalType.Dizzy)
                 effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject, 1.5f, 5f, _type);
             else if(_type == AbnormalType.Attack)
                 effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject, 1f, -40f, _type);
+        }
+
+        [PunRPC]
+        public void RPCGetEffectName(string name){
+            Debug.LogFormat("正在取得預知物{0}", name);
+            effect_prefab = Resources.Load(name, typeof(GameObject)) as GameObject;
+            Debug.LogFormat("已經取得預知物{0}", effect_prefab.name);
+        }
+
+        public void EndAnima(){
+            Debug.Log("END");
+            anima.SetBool("Short Attack", false);
+            anima.SetBool("Buff", false);
+            anima.SetBool("Range Attack", false);
+            State = PlayerState.Walk;
+        }
+
+        public void StartShortAtack()
+        {
+            if(!photonView.IsMine)
+                return;
+            Debug.Log("本地短距離攻擊");
+            photonView.RPC ("RPCStartShortAtack", RpcTarget.All);
+        }
+
+        public void StartBuff()
+        {
+            if(!photonView.IsMine)
+                return;
+            Debug.Log("本地回復");
+            photonView.RPC ("RPCSStartBuff", RpcTarget.All);
+        }
+
+        public void StartRangeAttack()
+        {
+            if(!photonView.IsMine)
+                return;
+            Debug.Log("本地遠距攻擊");
+            photonView.RPC ("RPCSStartRangeAttack", RpcTarget.All);
+        }
+
+        [PunRPC]
+        public void RPCStartShortAtack()
+        {
+            effect_gameobject = Instantiate(effect_prefab, this.gameObject.transform.position, Quaternion.identity);
+            effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject, 0.4f, -40f, AbnormalType.Attack);
+            Debug.Log("短攻擊");
+            // anima.SetBool("Short Attack", false);
+            // State = PlayerState.Walk;
+        }
+
+        [PunRPC]
+        public void RPCSStartBuff()
+        {
+            effect_gameobject = Instantiate(effect_prefab, this.gameObject.transform.position, Quaternion.identity);
+            effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject, 40f, AbnormalType.Health);
+            Debug.Log("遠端回復");
+            // anima.SetBool("Buff", false);
+            // State = PlayerState.Walk;
+        }
+
+        [PunRPC]
+        public void RPCSStartRangeAttack()
+        {
+            effect_gameobject = Instantiate(effect_prefab, this.gameObject.transform.position, Quaternion.identity);
+            effect_gameobject.transform.GetChild(0).GetComponent<Effect>().InitializeEffect(this.gameObject, 0.4f, 5f, AbnormalType.Dizzy);
+            Debug.Log("範圍");
+            // anima.SetBool("Range Attack", false);
+            // State = PlayerState.Walk;
         }
 
         public void ChangeHP(float blood){
